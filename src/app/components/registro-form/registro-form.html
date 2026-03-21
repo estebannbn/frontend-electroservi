@@ -1,0 +1,87 @@
+<form [formGroup]="registroForm" class="registro-form" (ngSubmit)="onSubmit()">
+    <div class="form-header">
+        <h2>{{ esTecnico ? 'Registro de Técnico' : 'Registro de Cliente' }}</h2>
+        <p>Completá los datos para crear tu cuenta</p>
+    </div>
+
+    <div class="form-grid">
+        <div class="input-group">
+            <label>Nombre</label>
+            <input type="text" formControlName="nombre" placeholder="Juan"
+                [class.invalid]="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
+            @if(registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+            <span class="error-message">Este campo es requerido.</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>Apellido</label>
+            <input type="text" formControlName="apellido" placeholder="Pérez"
+                [class.invalid]="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
+            @if(registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched) {
+            <span class="error-message">Este campo es requerido.</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>Teléfono</label>
+            <input type="text" formControlName="telefono" placeholder="+54 11 1234 5678"
+                [class.invalid]="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
+            @if(registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched) {
+            <span class="error-message">Este campo es requerido.</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>Mail</label>
+            <input type="email" formControlName="mail" placeholder="juan.perez@ejemplo.com"
+                [class.invalid]="registroForm.get('mail')?.invalid && registroForm.get('mail')?.touched">
+            @if(registroForm.get('mail')?.invalid && registroForm.get('mail')?.touched) {
+            <span class="error-message">Correo electrónico inválido o requerido.</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>CUIL</label>
+            <input type="text" formControlName="cuil" placeholder="20-12345678-9"
+                [class.invalid]="registroForm.get('cuil')?.invalid && registroForm.get('cuil')?.touched">
+            @if(registroForm.get('cuil')?.invalid && registroForm.get('cuil')?.touched) {
+            <span class="error-message">Este campo es requerido.</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>Dirección</label>
+            <input type="text" formControlName="direccion" placeholder="Av. Siempre Viva 123"
+                [class.invalid]="registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched">
+            @if(registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched) {
+            <span class="error-message">Este campo es requerido.</span>
+            }
+        </div>
+
+        @if (!esTecnico) {
+        <div class="input-group">
+            <label>Contraseña</label>
+            <input type="password" formControlName="contraseña" placeholder="Mínimo 6 caracteres"
+                [class.invalid]="registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched">
+            @if(registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched) {
+            <span class="error-message">Contraseña inválida o muy corta.</span>
+            }
+        </div>
+        <div class="input-group">
+            <label>Confirmar Contraseña</label>
+            <input type="password" formControlName="confirmarContraseña" placeholder="Repetí tu contraseña"
+                [class.invalid]="registroForm.get('confirmarContraseña')?.invalid && registroForm.get('confirmarContraseña')?.touched">
+            @if(registroForm.get('confirmarContraseña')?.invalid && registroForm.get('confirmarContraseña')?.touched) {
+            <span class="error-message">Este campo es requerido.</span>
+            }
+        </div>
+        }
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="registroForm.invalid">
+            Registrarme
+        </button>
+    </div>
+</form>
