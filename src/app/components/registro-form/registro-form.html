@@ -1,86 +1,112 @@
-<form [formGroup]="registroForm" class="registro-form" (ngSubmit)="onSubmit()">
-    <div class="form-header">
-        <h2>{{ esTecnico ? 'Registro de Técnico' : 'Registro de Cliente' }}</h2>
-        <p>Completá los datos para crear tu cuenta</p>
+<form [formGroup]="registroForm" class="container mx-auto p-4 p-md-5 bg-white rounded-4 shadow-sm mt-4 animated-form"
+    style="max-width: 800px;" (ngSubmit)="onSubmit()">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-dark mb-2">{{ esTecnico ? 'Registro de Técnico' : 'Registro de Cliente' }}</h2>
+        <p class="text-muted fs-5 mb-0">Completá los datos para crear tu cuenta</p>
     </div>
 
-    <div class="form-grid">
-        <div class="input-group">
-            <label>Nombre</label>
-            <input type="text" formControlName="nombre" placeholder="Juan"
-                [class.invalid]="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
-            @if(registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
-            <span class="error-message">Este campo es requerido.</span>
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">Nombre</label>
+            <input type="text" formControlName="nombre" class="form-control form-control-lg bg-light" placeholder="Juan"
+                [class.is-invalid]="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
+            @if(registroForm.get('nombre')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('nombre')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+            <div class="invalid-feedback">Este campo es requerido.</div>
             }
         </div>
 
-        <div class="input-group">
-            <label>Apellido</label>
-            <input type="text" formControlName="apellido" placeholder="Pérez"
-                [class.invalid]="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
-            @if(registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched) {
-            <span class="error-message">Este campo es requerido.</span>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">Apellido</label>
+            <input type="text" formControlName="apellido" class="form-control form-control-lg bg-light"
+                placeholder="Pérez"
+                [class.is-invalid]="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
+            @if(registroForm.get('apellido')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('apellido')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched) {
+            <div class="invalid-feedback">Este campo es requerido.</div>
             }
         </div>
 
-        <div class="input-group">
-            <label>Teléfono</label>
-            <input type="text" formControlName="telefono" placeholder="+54 11 1234 5678"
-                [class.invalid]="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
-            @if(registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched) {
-            <span class="error-message">Este campo es requerido.</span>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">Teléfono</label>
+            <input type="text" formControlName="telefono" class="form-control form-control-lg bg-light"
+                placeholder="11 1234 5678"
+                [class.is-invalid]="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
+            @if(registroForm.get('telefono')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('telefono')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched) {
+            <div class="invalid-feedback">Este campo es requerido.</div>
             }
         </div>
 
-        <div class="input-group">
-            <label>Mail</label>
-            <input type="email" formControlName="mail" placeholder="juan.perez@ejemplo.com"
-                [class.invalid]="registroForm.get('mail')?.invalid && registroForm.get('mail')?.touched">
-            @if(registroForm.get('mail')?.invalid && registroForm.get('mail')?.touched) {
-            <span class="error-message">Correo electrónico inválido o requerido.</span>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">Mail</label>
+            <input type="email" formControlName="mail" class="form-control form-control-lg bg-light"
+                placeholder="juan.perez@ejemplo.com"
+                [class.is-invalid]="registroForm.get('mail')?.invalid && registroForm.get('mail')?.touched">
+            @if(registroForm.get('mail')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('mail')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('mail')?.invalid && registroForm.get('mail')?.touched) {
+            <div class="invalid-feedback">Correo electrónico inválido o requerido.</div>
             }
         </div>
 
-        <div class="input-group">
-            <label>CUIL</label>
-            <input type="text" formControlName="cuil" placeholder="20-12345678-9"
-                [class.invalid]="registroForm.get('cuil')?.invalid && registroForm.get('cuil')?.touched">
-            @if(registroForm.get('cuil')?.invalid && registroForm.get('cuil')?.touched) {
-            <span class="error-message">Este campo es requerido.</span>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">CUIL</label>
+            <input type="text" formControlName="cuil" class="form-control form-control-lg bg-light"
+                placeholder="20-12345678-9"
+                [class.is-invalid]="registroForm.get('cuil')?.invalid && registroForm.get('cuil')?.touched">
+            @if(registroForm.get('cuil')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('cuil')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('cuil')?.invalid && registroForm.get('cuil')?.touched) {
+            <div class="invalid-feedback">Este campo es requerido.</div>
             }
         </div>
 
-        <div class="input-group">
-            <label>Dirección</label>
-            <input type="text" formControlName="direccion" placeholder="Av. Siempre Viva 123"
-                [class.invalid]="registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched">
-            @if(registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched) {
-            <span class="error-message">Este campo es requerido.</span>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">Dirección</label>
+            <input type="text" formControlName="direccion" class="form-control form-control-lg bg-light"
+                placeholder="Av. Siempre Viva 123"
+                [class.is-invalid]="registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched">
+            @if(registroForm.get('direccion')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('direccion')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched) {
+            <div class="invalid-feedback">Este campo es requerido.</div>
             }
         </div>
 
         @if (!esTecnico) {
-        <div class="input-group">
-            <label>Contraseña</label>
-            <input type="password" formControlName="contraseña" placeholder="Mínimo 6 caracteres"
-                [class.invalid]="registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched">
-            @if(registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched) {
-            <span class="error-message">Contraseña inválida o muy corta.</span>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">Contraseña</label>
+            <input type="password" formControlName="contraseña" class="form-control form-control-lg bg-light"
+                placeholder="Mínimo 6 caracteres"
+                [class.is-invalid]="registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched">
+            @if(registroForm.get('contraseña')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('contraseña')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched) {
+            <div class="invalid-feedback">Contraseña inválida o muy corta.</div>
             }
         </div>
-        <div class="input-group">
-            <label>Confirmar Contraseña</label>
-            <input type="password" formControlName="confirmarContraseña" placeholder="Repetí tu contraseña"
-                [class.invalid]="registroForm.get('confirmarContraseña')?.invalid && registroForm.get('confirmarContraseña')?.touched">
-            @if(registroForm.get('confirmarContraseña')?.invalid && registroForm.get('confirmarContraseña')?.touched) {
-            <span class="error-message">Este campo es requerido.</span>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary ms-1">Confirmar Contraseña</label>
+            <input type="password" formControlName="confirmarContraseña" class="form-control form-control-lg bg-light"
+                placeholder="Repetí tu contraseña"
+                [class.is-invalid]="registroForm.get('confirmarContraseña')?.invalid && registroForm.get('confirmarContraseña')?.touched">
+            @if(registroForm.get('confirmarContraseña')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ registroForm.get('confirmarContraseña')?.getError('serverError') }}</div>
+            } @else if(registroForm.get('confirmarContraseña')?.invalid &&
+            registroForm.get('confirmarContraseña')?.touched) {
+            <div class="invalid-feedback">Este campo es requerido.</div>
             }
         </div>
         }
     </div>
 
-    <div class="form-actions">
-        <button type="submit" class="btn-primary" [disabled]="registroForm.invalid">
+    <div class="text-center mt-5">
+        <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm submit-btn"
+            [disabled]="registroForm.invalid" style="min-width: 250px;">
             Registrarme
         </button>
     </div>

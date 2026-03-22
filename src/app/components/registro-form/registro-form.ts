@@ -1,5 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RegistroFormService } from '../../services/registro-form/registro-form.service';
 
 @Component({
   selector: 'app-registro-form',
@@ -13,10 +14,34 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 export class RegistroFormComponent implements OnInit {
   @Input() esTecnico: boolean = false;
 
+  private registroService = inject(RegistroFormService);
+
   onSubmit() {
     if (this.registroForm.valid) {
       console.log('Formulario de registro enviado:', this.registroForm.value);
-      // TODO: Conectar con un servicio
+      const tipo = this.esTecnico ? 'tecnico' : 'cliente';
+
+      this.registroService.registrarUsuario(this.registroForm.value, tipo).subscribe({
+        next: (response) => {
+          console.log('Usuario registrado con éxito', response);
+          alert('Registro exitoso');
+          // TODO: Redirigir al usuario o mostrar mensaje de éxito en la UI
+        },
+        error: (err) => {
+          console.error('Error al registrar usuario', err);
+          if (err.status === 400 && err.error?.error && Array.isArray(err.error.error)) {
+            err.error.error.forEach((valError: any) => {
+              const field = this.registroForm.get(valError.path);
+              if (field) {
+                field.setErrors({ serverError: valError.message });
+                field.markAsTouched();
+              }
+            });
+          } else {
+            alert(err.error?.message || 'Hubo un error al registrar el usuario');
+          }
+        }
+      });
     } else {
       this.registroForm.markAllAsTouched();
     }
