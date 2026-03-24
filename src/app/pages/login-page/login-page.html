@@ -1,0 +1,42 @@
+<form [formGroup]="loginForm" class="container mx-auto p-4 p-md-5 bg-white rounded-4 shadow-sm mt-4 animated-form"
+    style="max-width: 500px;" (ngSubmit)="onSubmit()">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-dark mb-2">Iniciar Sesión</h2>
+        <p class="text-muted fs-5 mb-0">Ingresá tus credenciales para continuar</p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <label class="form-label fw-semibold text-secondary ms-1">Mail</label>
+            <input type="email" formControlName="mail" class="form-control form-control-lg bg-light"
+                placeholder="tu@correo.com"
+                [class.is-invalid]="loginForm.get('mail')?.invalid && loginForm.get('mail')?.touched">
+            @if(loginForm.get('mail')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ loginForm.get('mail')?.getError('serverError') }}</div>
+            } @else if(loginForm.get('mail')?.invalid && loginForm.get('mail')?.touched) {
+            <div class="invalid-feedback">Correo electrónico inválido o requerido.</div>
+            }
+        </div>
+
+        <div class="col-12">
+            <label class="form-label fw-semibold text-secondary ms-1">Contraseña</label>
+            <input type="password" formControlName="contraseña" class="form-control form-control-lg bg-light"
+                placeholder="Tu contraseña"
+                [class.is-invalid]="loginForm.get('contraseña')?.invalid && loginForm.get('contraseña')?.touched">
+            @if(loginForm.get('contraseña')?.hasError('serverError')) {
+            <div class="invalid-feedback">{{ loginForm.get('contraseña')?.getError('serverError') }}</div>
+            } @else if(loginForm.get('contraseña')?.invalid && loginForm.get('contraseña')?.touched) {
+            <div class="invalid-feedback">Este campo es requerido.</div>
+            }
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <button type="submit"
+            class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm submit-btn w-100 mb-3 submit-btn"
+            [disabled]="loginForm.invalid">
+            Ingresar
+        </button>
+        <a href="/registro-cliente" class="text-decoration-none text-muted">¿No tenés cuenta? Registrate acá</a>
+    </div>
+</form>
