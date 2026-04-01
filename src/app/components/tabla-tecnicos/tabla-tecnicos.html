@@ -1,0 +1,55 @@
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">ElectroServi Inc.</h1>
+    <button class="btn btn-outline-secondary" (click)="volverMenu()">
+      ← Volver a menú de administrador
+    </button>
+  </div>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="cargando()" class="alert alert-info" role="alert">
+    <div class="spinner-border spinner-border-sm me-2" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    Cargando técnicos...
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error()" class="alert alert-danger" role="alert">
+    {{ error() }}
+  </div>
+
+  <div class="row g-3" *ngIf="!cargando() && !error()">
+    <div class="col-12 col-lg-6" *ngFor="let tecnico of tecnicos()">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-1">{{ tecnico.nombre }} {{ tecnico.apellido }}</h5>
+            <span class="badge" [ngClass]="tecnico.activo ? 'bg-success' : 'bg-danger'">
+              {{ tecnico.activo ? 'Activo' : 'Deshabilitado' }}
+            </span>
+          </div>
+          <p class="mb-1"><strong>Email:</strong> {{ tecnico.mail }}</p>
+          <p class="mb-3"><strong>Teléfono:</strong> {{ tecnico.telefono }}</p>
+          <button
+            class="btn btn-sm"
+            [ngClass]="tecnico.activo ? 'btn-danger' : 'btn-success'"
+            (click)="toggleEstado(tecnico)">
+            {{ tecnico.activo ? 'Deshabilitar' : 'Habilitar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 border-top pt-3" *ngIf="!cargando()">
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-primary" (click)="crearNuevoTecnico()">Crear nuevo técnico</button>
+      <button class="btn btn-warning text-white" (click)="modificarSueldo()">Modificar sueldo común</button>
+      <button class="btn btn-success" (click)="registrarPagos()">Registrar pagos</button>
+    </div>
+    <small class="text-muted d-block mt-2">
+      Esta opción únicamente es posible logarla los primeros 10 días del mes.
+    </small>
+  </div>
+</div>
