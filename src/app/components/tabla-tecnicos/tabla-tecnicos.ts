@@ -1,5 +1,6 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { TablaTecnicosService, Usuario } from '../../services/tabla-tecnicos/tabla-tecnicos';
 
 interface Tecnico extends Usuario {
@@ -14,6 +15,7 @@ interface Tecnico extends Usuario {
   styleUrl: './tabla-tecnicos.css',
 })
 export class TablaTecnicos implements OnInit {
+  private router = inject(Router);
   private location = inject(Location);
   private tablaTecnicosService = inject(TablaTecnicosService);
 
@@ -46,7 +48,7 @@ export class TablaTecnicos implements OnInit {
   }
 
   volverMenu() {
-    this.location.back();
+    this.router.navigate(['/admin']);
   }
 
   toggleEstado(tecnico: Tecnico) {
@@ -55,15 +57,5 @@ export class TablaTecnicos implements OnInit {
     );
   }
 
-  crearNuevoTecnico() {
-    alert('Acción: Crear nuevo técnico (pendiente implementación de formulario)');
-  }
 
-  modificarSueldo() {
-    alert('Acción: Modificar sueldo común (pendiente implementación de lógica)');
-  }
-
-  registrarPagos() {
-    alert('Acción: Registrar pagos (solo los primeros 10 días del mes)');
-  }
 }
