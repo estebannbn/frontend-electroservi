@@ -1,0 +1,40 @@
+.dashboard-panel {
+  background-color: #ffffff;
+}
+
+.panel-header {
+  border-bottom: 3px solid rgba(0,0,0,0.1);
+}
+
+.icon-wrapper {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu-btn {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.menu-btn:hover, .menu-btn:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+  background-color: #ffffff !important;
+  z-index: 10;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+
+.menu-btn:hover .icon-wrapper, .menu-btn:focus-visible .icon-wrapper {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.menu-btn:hover .chevron {
+  transform: translateX(5px);
+}
