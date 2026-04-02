@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center mb-3">
+  <div class="d-flex align-items-center flex-grow-1 bg-light border p-3 shadow-sm rounded" style="gap: 20px;">
+    
+    <div class="d-flex align-items-center" style="flex: 1;">
+      <span class="me-2 text-secondary text-nowrap" style="font-size: 0.9rem;">Nombre Completo:</span>
+      <input type="text" class="form-control bg-white" [value]="nombreCompleto" disabled readonly>
+    </div>
+    
+    <div class="d-flex align-items-center" style="flex: 1;">
+      <span class="me-2 text-secondary" style="font-size: 0.9rem;">Email:</span>
+      <input type="text" class="form-control bg-white" [value]="email" disabled readonly>
+    </div>
+    
+    <div class="d-flex align-items-center" style="flex: 1;">
+      <span class="me-2 text-secondary text-nowrap" style="font-size: 0.9rem;">pago total del mes:</span>
+      <div class="input-group">
+        <input type="number" class="form-control bg-white" [(ngModel)]="montoPago" [disabled]="pagoRealizado">
+        <span class="input-group-text bg-white">$</span>
+      </div>
+    </div>
+
+  </div>
+  
+  <div class="ms-3">
+    @if (!pagoRealizado) {
+        <button class="btn btn-outline-secondary fw-semibold shadow-sm" style="min-width: 150px; padding: 0.6rem 1rem;" (click)="registrarPago()">Registrar pago</button>
+    } @else {
+        <button class="btn btn-success fw-semibold shadow-sm" style="min-width: 150px; padding: 0.6rem 1rem;" disabled>Pago realizado</button>
+    }
+  </div>
+</div>

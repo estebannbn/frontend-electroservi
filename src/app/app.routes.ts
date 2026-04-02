@@ -5,13 +5,27 @@ import { ClientesDasbhoard } from './pages/clientes-dasbhoard/clientes-dasbhoard
 import { LoginPage } from './pages/login-page/login-page';
 import { AdminDashboard } from './pages/admin-dashboard/admin-dashboard';
 import { MenuTecnicos } from './pages/menu-tecnicos/menu-tecnicos';
+import { EditarUsuario } from './pages/editar-usuario/editar-usuario';
+import { RegistrarPago } from './pages/registrar-pago/registrar-pago';
 
 export const routes: Routes = [
-    { path: 'registro-cliente', component: RegistroCliente },
-    { path: 'admin/menu-tecnicos', component: MenuTecnicos },
-    { path: 'registro-tecnico', component: RegistroTecnico },
-    { path: 'clientes', component: ClientesDasbhoard },
     { path: 'login', component: LoginPage },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'admin', component: AdminDashboard }
+    { path: 'registro-cliente', component: RegistroCliente },
+    { path: 'registro-tecnico', component: RegistroTecnico },
+    {
+        path: 'admin',
+        children: [
+            { path: '', component: AdminDashboard },
+            { path: 'menu-tecnicos', component: MenuTecnicos },
+            { path: 'registrar-pago', component: RegistrarPago }
+        ]
+    },
+    {
+        path: 'clientes',
+        children: [
+            { path: '', component: ClientesDasbhoard },
+            { path: 'editar-perfil', component: EditarUsuario }
+        ]
+    },
+    { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

@@ -15,9 +15,7 @@ export class NavbarComponent {
   constructor(private router: Router, private authService: AuthServiceTs) { }
 
   modificarDatos() {
-    // Aquí puedes poner la ruta o lógica para editar el perfil
-    // this.router.navigate(['/perfil']);
-    console.log('Modificar datos del usuario');
+    this.router.navigate(['/clientes/editar-perfil']);
   }
 
   cerrarSesion() {

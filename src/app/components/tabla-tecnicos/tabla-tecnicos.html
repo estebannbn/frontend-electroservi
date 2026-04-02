@@ -31,9 +31,7 @@
           </div>
           <p class="mb-1"><strong>Email:</strong> {{ tecnico.mail }}</p>
           <p class="mb-3"><strong>Teléfono:</strong> {{ tecnico.telefono }}</p>
-          <button
-            class="btn btn-sm"
-            [ngClass]="tecnico.activo ? 'btn-danger' : 'btn-success'"
+          <button class="btn btn-sm" [ngClass]="tecnico.activo ? 'btn-danger' : 'btn-success'"
             (click)="toggleEstado(tecnico)">
             {{ tecnico.activo ? 'Deshabilitar' : 'Habilitar' }}
           </button>

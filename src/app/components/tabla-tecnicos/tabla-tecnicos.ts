@@ -1,7 +1,7 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { TablaTecnicosService, Usuario } from '../../services/tabla-tecnicos/tabla-tecnicos';
+import { TablaTecnicosService, Usuario } from '../../services/tabla-tecnicos/tabla-tecnicos.service';
 
 interface Tecnico extends Usuario {
   activo: boolean;
