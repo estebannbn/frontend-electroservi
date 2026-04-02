@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TablaTecnicos } from './tabla-tecnicos';
+import { RegistrarPagoService } from './registrar-pago.service';
 
-describe('TablaTecnicos', () => {
-  let service: TablaTecnicos;
+describe('RegistrarPagoService', () => {
+  let service: RegistrarPagoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TablaTecnicos);
+    service = TestBed.inject(RegistrarPagoService);
   });
 
   it('should be created', () => {

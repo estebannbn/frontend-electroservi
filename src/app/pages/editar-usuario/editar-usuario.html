@@ -1,0 +1,88 @@
+<div class="container mx-auto p-4 p-md-5 bg-white rounded-4 shadow-sm mt-4 animated-form" style="max-width: 800px;">
+    <!-- Top header with 'Volver al menu' and Logo -->
+    <div class="d-flex align-items-center mb-4">
+        <button type="button" class="btn btn-outline-secondary me-3" (click)="volverAlMenu()">
+            &larr; Volver al menu
+        </button>
+        <h3 class="mb-0 fw-bold ms-auto">ElectroServi <span class="fs-6 fw-normal text-muted">Inc.</span></h3>
+    </div>
+
+    <form [formGroup]="editarUsuarioForm" (ngSubmit)="onSubmit()">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark mb-2">Modificar datos de usuario:</h2>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary ms-1">Nombre:</label>
+                <input type="text" formControlName="nombre" class="form-control form-control-lg bg-light"
+                    placeholder="Juan Carlos"
+                    [class.is-invalid]="editarUsuarioForm.get('nombre')?.invalid && editarUsuarioForm.get('nombre')?.touched">
+                @if(editarUsuarioForm.get('nombre')?.invalid && editarUsuarioForm.get('nombre')?.touched) {
+                <div class="invalid-feedback">Este campo es requerido.</div>
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary ms-1">Apellido:</label>
+                <input type="text" formControlName="apellido" class="form-control form-control-lg bg-light"
+                    placeholder="Bodoque"
+                    [class.is-invalid]="editarUsuarioForm.get('apellido')?.invalid && editarUsuarioForm.get('apellido')?.touched">
+                @if(editarUsuarioForm.get('apellido')?.invalid && editarUsuarioForm.get('apellido')?.touched) {
+                <div class="invalid-feedback">Este campo es requerido.</div>
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary ms-1">Dirección:</label>
+                <input type="text" formControlName="direccion" class="form-control form-control-lg bg-light"
+                    placeholder="zeballos 4869"
+                    [class.is-invalid]="editarUsuarioForm.get('direccion')?.invalid && editarUsuarioForm.get('direccion')?.touched">
+                @if(editarUsuarioForm.get('direccion')?.invalid && editarUsuarioForm.get('direccion')?.touched) {
+                <div class="invalid-feedback">Este campo es requerido.</div>
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary ms-1">Teléfono:</label>
+                <input type="text" formControlName="telefono" class="form-control form-control-lg bg-light"
+                    placeholder="154865493"
+                    [class.is-invalid]="editarUsuarioForm.get('telefono')?.invalid && editarUsuarioForm.get('telefono')?.touched">
+                @if(editarUsuarioForm.get('telefono')?.invalid && editarUsuarioForm.get('telefono')?.touched) {
+                <div class="invalid-feedback">Este campo es requerido.</div>
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary ms-1">Contraseña:</label>
+                <input type="password" formControlName="contraseña" class="form-control form-control-lg bg-light"
+                    placeholder="*************"
+                    [class.is-invalid]="editarUsuarioForm.get('contraseña')?.invalid && editarUsuarioForm.get('contraseña')?.touched">
+                @if(editarUsuarioForm.get('contraseña')?.invalid && editarUsuarioForm.get('contraseña')?.touched) {
+                <div class="invalid-feedback">Contraseña inválida o muy corta.</div>
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary ms-1">Repetir Contraseña:</label>
+                <input type="password" formControlName="confirmarContraseña"
+                    class="form-control form-control-lg bg-light" placeholder="*************"
+                    [class.is-invalid]="editarUsuarioForm.get('confirmarContraseña')?.invalid && editarUsuarioForm.get('confirmarContraseña')?.touched">
+                @if(editarUsuarioForm.get('confirmarContraseña')?.hasError('passwordMismatch')) {
+                <div class="invalid-feedback d-block">Las contraseñas no coinciden.</div>
+                } @else if(editarUsuarioForm.get('confirmarContraseña')?.invalid &&
+                editarUsuarioForm.get('confirmarContraseña')?.touched) {
+                <div class="invalid-feedback">Este campo es requerido.</div>
+                }
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <button type="submit"
+                class="btn btn-outline-secondary btn-lg px-5 shadow-sm submit-btn rounded-pill fw-bold"
+                [disabled]="editarUsuarioForm.invalid" style="min-width: 250px;">
+                Aplicar
+            </button>
+        </div>
+    </form>
+</div>
