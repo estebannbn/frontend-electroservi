@@ -8,6 +8,7 @@ import { MenuTecnicos } from './pages/menu-tecnicos/menu-tecnicos';
 import { EditarUsuario } from './pages/editar-usuario/editar-usuario';
 import { RegistrarPago } from './pages/registrar-pago/registrar-pago';
 import { SolicitarServicio } from './pages/solicitar-servicio/solicitar-servicio';
+import { ModificarTipoTrabajo } from './pages/modificar-tipo-trabajo/modificar-tipo-trabajo';
 
 export const routes: Routes = [
     { path: 'login', component: LoginPage },
@@ -18,7 +19,8 @@ export const routes: Routes = [
         children: [
             { path: '', component: AdminDashboard },
             { path: 'menu-tecnicos', component: MenuTecnicos },
-            { path: 'registrar-pago', component: RegistrarPago }
+            { path: 'registrar-pago', component: RegistrarPago },
+            { path: 'modificar-tipo-trabajo', component: ModificarTipoTrabajo }
         ]
     },
     {
