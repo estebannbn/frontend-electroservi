@@ -44,5 +44,4 @@ __screenshots__/
 Thumbs.db
 
 # environment variables
-src/environments
-environments/
+/src/environments
