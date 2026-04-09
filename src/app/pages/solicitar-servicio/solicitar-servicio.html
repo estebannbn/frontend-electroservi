@@ -1,0 +1,65 @@
+<form class="container py-4" #serviceForm="ngForm" (ngSubmit)="onSubmit(serviceForm)" *ngIf="!pedidoExitoso">
+  <div class="text-center mb-4">
+    <h1 class="fw-bold">ElectroServi <small class="text-muted">Inc.</small></h1>
+  </div>
+
+  <div class="row justify-content-center gx-4 gy-3">
+    <div class="col-md-6">
+      <label for="arrivalDate" class="form-label">Fecha de llegada estimada:</label>
+      <div class="input-group">
+        <input
+          id="arrivalDate"
+          name="arrivalDate"
+          class="form-control"
+          placeholder="dd/mm/yyyy"
+          ngbDatepicker
+          #d="ngbDatepicker"
+          [(ngModel)]="service.arrivalDate"
+        />
+        <button class="btn btn-outline-secondary" type="button" (click)="d.toggle()">
+          📅
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="applianceType" class="form-label">Tipo de electrodoméstico:</label>
+      <select id="applianceType" name="applianceType" class="form-select" [(ngModel)]="service.applianceType">
+        <option value="">Seleccione tipo</option>
+        <option *ngFor="let type of applianceTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="brand" class="form-label">Ingrese la marca del electrodoméstico:</label>
+      <select id="brand" name="brand" class="form-select" [(ngModel)]="service.brand" (change)="onBrandChange()">
+        <option value="">Seleccione marca</option>
+        <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="model" class="form-label">Ingrese el modelo del electrodoméstico:</label>
+      <select id="model" name="model" class="form-select" [(ngModel)]="service.model">
+        <option value="">Seleccione modelo</option>
+        <option *ngFor="let model of selectedModels" [value]="model">{{ model }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6 d-flex justify-content-between">
+      <button class="btn btn-outline-secondary" type="button" (click)="onBack()">Volver</button>
+      <button class="btn btn-primary" type="submit">Enviar</button>
+    </div>
+  </div>
+</form>
+
+<div class="container py-4 text-center" *ngIf="pedidoExitoso">
+  <div class="alert alert-success rounded-4 shadow-sm">
+    <h2 class="mb-3">pedido hecho correctamente</h2>
+    <button class="btn btn-primary px-4" type="button" (click)="onBack()">
+      menu de clientes
+    </button>
+  </div>
+</div>

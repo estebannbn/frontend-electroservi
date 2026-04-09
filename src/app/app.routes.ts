@@ -7,6 +7,7 @@ import { AdminDashboard } from './pages/admin-dashboard/admin-dashboard';
 import { MenuTecnicos } from './pages/menu-tecnicos/menu-tecnicos';
 import { EditarUsuario } from './pages/editar-usuario/editar-usuario';
 import { RegistrarPago } from './pages/registrar-pago/registrar-pago';
+import { SolicitarServicio } from './pages/solicitar-servicio/solicitar-servicio';
 
 export const routes: Routes = [
     { path: 'login', component: LoginPage },
@@ -24,7 +25,8 @@ export const routes: Routes = [
         path: 'clientes',
         children: [
             { path: '', component: ClientesDasbhoard },
-            { path: 'editar-perfil', component: EditarUsuario }
+            { path: 'editar-perfil', component: EditarUsuario },
+            { path: 'solicitar-servicio', component: SolicitarServicio }
         ]
     },
     { path: '', redirectTo: '/login', pathMatch: 'full' }
