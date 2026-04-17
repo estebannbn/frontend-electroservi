@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+
+// Pages
 import { RegistroCliente } from './pages/registro-cliente/registro-cliente';
 import { RegistroTecnico } from './pages/registro-tecnico/registro-tecnico';
 import { ClientesDasbhoard } from './pages/clientes-dasbhoard/clientes-dasbhoard';
@@ -9,6 +11,11 @@ import { EditarUsuario } from './pages/editar-usuario/editar-usuario';
 import { RegistrarPago } from './pages/registrar-pago/registrar-pago';
 import { SolicitarServicio } from './pages/solicitar-servicio/solicitar-servicio';
 import { ModificarTipoTrabajo } from './pages/modificar-tipo-trabajo/modificar-tipo-trabajo';
+
+// Guards
+import { adminGuard } from './auth/admin-guard';
+import { clienteGuard } from './auth/cliente-guard';
+import { tecnicoGuard } from './auth/tecnico-guard';
 
 export const routes: Routes = [
     { path: 'login', component: LoginPage },
@@ -21,7 +28,8 @@ export const routes: Routes = [
             { path: 'menu-tecnicos', component: MenuTecnicos },
             { path: 'registrar-pago', component: RegistrarPago },
             { path: 'modificar-tipo-trabajo', component: ModificarTipoTrabajo }
-        ]
+        ],
+        canActivate: [adminGuard]
     },
     {
         path: 'clientes',
@@ -29,7 +37,8 @@ export const routes: Routes = [
             { path: '', component: ClientesDasbhoard },
             { path: 'editar-perfil', component: EditarUsuario },
             { path: 'solicitar-servicio', component: SolicitarServicio }
-        ]
+        ],
+        canActivate: [clienteGuard]
     },
     { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
