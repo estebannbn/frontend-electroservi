@@ -1,9 +1,21 @@
+@if (!isAuthRoute) {
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm">
-  <div class="container-fluid d-flex justify-content-start">
-    <span class="fw-bold text-primary fs-1">Electroservice</span>
+  <div class="container-fluid d-flex justify-content-start align-items-center gap-3">
+    <button class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center"
+      style="width: 32px; height: 32px;" (click)="goBack()" title="Volver atrás">
+      <span class="fs-5 lh-1">&#8592;</span>
+    </button>
+    <div class="d-flex align-items-center gap-2">
+      <div class="bg-primary rounded d-flex align-items-center justify-content-center text-white fw-bold"
+        style="width: 28px; height: 28px; font-size: 1.1rem;">
+        E
+      </div>
+      <span class="fw-bold text-primary fs-4 mb-0">Electroservice</span>
+    </div>
   </div>
   <div class="container-fluid d-flex justify-content-end gap-2">
-    <button class="btn btn-outline-primary btn-m" (click)="modificarDatos()">Modificar datos del usuario</button>
-    <button class="btn btn-danger btn-m" (click)="cerrarSesion()">Cerrar sesión</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="modificarDatos()">Modificar datos del usuario</button>
+    <button class="btn btn-danger btn-sm" (click)="cerrarSesion()">Cerrar sesión</button>
   </div>
 </nav>
+}
