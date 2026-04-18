@@ -25,7 +25,13 @@ export class LoginPage {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('Login exitoso', response);
-          this.router.navigate(['/clientes']);
+          if (response.tipo === 'tecnico') {
+            this.router.navigate(['/tecnicos']);
+          } else if (response.tipo === 'administrador') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/clientes']);
+          }
         },
         error: (err) => {
           console.error('Error al iniciar sesión', err);
