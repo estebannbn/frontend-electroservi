@@ -11,6 +11,7 @@ import { EditarUsuario } from './pages/editar-usuario/editar-usuario';
 import { RegistrarPago } from './pages/registrar-pago/registrar-pago';
 import { SolicitarServicio } from './pages/solicitar-servicio/solicitar-servicio';
 import { ModificarTipoTrabajo } from './pages/modificar-tipo-trabajo/modificar-tipo-trabajo';
+import { TecnicosDashboard } from './pages/tecnicos-dashboard/tecnicos-dashboard';
 
 // Guards
 import { adminGuard } from './auth/admin-guard';
@@ -39,6 +40,13 @@ export const routes: Routes = [
             { path: 'solicitar-servicio', component: SolicitarServicio }
         ],
         canActivate: [clienteGuard]
+    },
+    {
+        path: 'tecnicos',
+        children: [
+            { path: '', component: TecnicosDashboard },
+        ],
+        canActivate: [tecnicoGuard]
     },
     { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
