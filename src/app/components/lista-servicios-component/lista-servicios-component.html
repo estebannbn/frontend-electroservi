@@ -30,7 +30,7 @@
                     </td>
                     <td class="border-0 py-3 text-dark">{{ servicio.fechaLlegadaEstimada | date:'dd/MM/yyyy' }}</td>
                     <td class="border-0 py-3 text-muted">
-                        {{ servicio.fechaFin ? (servicio.fechaFin | date:'dd/MM/yyyy') : 'Pendiente' }}
+                        {{ servicio.fechaFin ? (servicio.fechaFin | date:'dd/MM/yyyy') : '-' }}
                     </td>
                 </tr>
                 } @empty {

@@ -3,8 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
+export enum tipoElectrodomestico {
+  HELADERA = 'Heladera',
+  LAVARROPAS = 'Lavarropas',
+  AIRE_ACONDICIONADO = 'Aire Acondicionado',
+}
+
 export interface Electrodomestico {
-  tipo: 'HELADERA' | 'LAVARROPAS' | 'AIRE_ACONDICIONADO';
+  tipo: tipoElectrodomestico;
   modelo: string;
   marca: string;
   clienteId: number;
@@ -24,5 +30,12 @@ export class SolicitarServicioService {
 
   obtenerElectrodomesticos(): Observable<Electrodomestico[]> {
     return this.http.get<Electrodomestico[]>(this.apiUrl);
+  }
+  
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/usuario/auth`, { withCredentials: true });
+  }
+  crearServicio(servicio: any): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/servicio`, servicio);
   }
 }

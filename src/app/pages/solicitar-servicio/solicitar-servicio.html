@@ -32,18 +32,28 @@
 
     <div class="col-md-6">
       <label for="brand" class="form-label">Ingrese la marca del electrodoméstico:</label>
-      <select id="brand" name="brand" class="form-select" [(ngModel)]="service.brand" (change)="onBrandChange()">
-        <option value="">Seleccione marca</option>
-        <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
-      </select>
+      <input
+        id="brand"
+        name="brand"
+        class="form-control"
+        type="text"
+        placeholder="Ej. Samsung"
+        [(ngModel)]="service.brand"
+        required
+      />
     </div>
 
     <div class="col-md-6">
       <label for="model" class="form-label">Ingrese el modelo del electrodoméstico:</label>
-      <select id="model" name="model" class="form-select" [(ngModel)]="service.model">
-        <option value="">Seleccione modelo</option>
-        <option *ngFor="let model of selectedModels" [value]="model">{{ model }}</option>
-      </select>
+      <input
+        id="model"
+        name="model"
+        class="form-control"
+        type="text"
+        placeholder="Ej. No Frost 300L"
+        [(ngModel)]="service.model"
+        required
+      />
     </div>
   </div>
 
