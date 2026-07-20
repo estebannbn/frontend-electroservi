@@ -14,10 +14,10 @@ export class ListaServiciosService {
   constructor() { }
 
   obtenerServiciosCliente(clienteId?: number): Observable<Servicio[]> {
-    let url = `${this.baseUrl}/api/servicio`;
+    let url = `${this.baseUrl}/servicio`;
     if (clienteId) {
       url += `?clienteId=${clienteId}`;
     }
-    return this.http.get<Servicio[]>(url);
+    return this.http.get<Servicio[]>(url, { withCredentials: true });
   }
 }

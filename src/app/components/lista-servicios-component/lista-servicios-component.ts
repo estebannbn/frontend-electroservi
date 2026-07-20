@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { ListaServiciosService } from '../../services/lista-servicios/lista-servicios.service';
 import { Servicio } from '../../interfaces/servicio';
@@ -13,6 +13,7 @@ import { Servicio } from '../../interfaces/servicio';
 export class ListaServiciosComponent implements OnInit {
   public servicios: Servicio[] = [];
   private serviciosService = inject(ListaServiciosService);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     // Aquí puedes pasar el ID del cliente si lo tienes disponible en el Auth Service.
@@ -21,6 +22,7 @@ export class ListaServiciosComponent implements OnInit {
     this.serviciosService.obtenerServiciosCliente().subscribe({
       next: (data) => {
         this.servicios = data;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al obtener servicios', err);

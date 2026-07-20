@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import {
   SolicitarServicioService,
@@ -16,10 +16,29 @@ import { Electrodomestico } from '../../interfaces/electrodomestico';
   styleUrls: ['./solicitar-servicio.css'],
 })
 export class SolicitarServicio implements OnInit {
-  constructor(private router: Router, private solicitarServicio: SolicitarServicioService) {}
+  minDate: NgbDateStruct;
+  maxDate: NgbDateStruct;
+
+  constructor(
+    private router: Router, 
+    private solicitarServicio: SolicitarServicioService,
+    private calendar: NgbCalendar
+  ) {
+    const today = this.calendar.getToday();
+    this.minDate = this.calendar.getNext(today, 'd', 2);
+    this.maxDate = this.calendar.getNext(today, 'd', 14);
+  }
+
+  isDisabled = (date: NgbDate, current?: { month: number; year: number }) => {
+    return this.calendar.getWeekday(date) === 7;
+  };
 
   electrodomesticos: Electrodomestico[] = [];
-  applianceTypes: string[] = Object.values(tipoElectrodomestico);
+  applianceTypes = [
+    { value: tipoElectrodomestico.HELADERA, display: 'Heladera' },
+    { value: tipoElectrodomestico.LAVARROPAS, display: 'Lavarropas' },
+    { value: tipoElectrodomestico.AIRE_ACONDICIONADO, display: 'Aire Acondicionado' }
+  ];
   pedidoExitoso = false;
 
   service = {
@@ -69,15 +88,13 @@ export class SolicitarServicio implements OnInit {
     if (form.valid) {
       // obtener clienteId desde la sesión (cookie httpOnly) por medio del endpoint /usuario/auth
       this.solicitarServicio.getCurrentUser().subscribe({
-        next: (user) => {
-          const clienteId = user?.id;
+        next: (response) => {
+          const clienteId = response?.user?.id;
 
           const servicio = {
             fechaLlegadaEstimada: this.parseDate(this.service.arrivalDate) || new Date(),
             comentario: '',
-            tecnicoId: null,
             clienteId: clienteId,
-            tipoTrabajoId: null,
             electrodomestico: {
               tipo: this.service.applianceType as tipoElectrodomestico,
               modelo: this.service.model,

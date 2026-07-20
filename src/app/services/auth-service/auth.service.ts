@@ -11,14 +11,14 @@ export class AuthServiceTs {
   constructor(private http: HttpClient) { }
 
   login(loginData: LoginInput) {
-    return this.http.post<any>(`${this.baseUrl}/api/usuario/login`, loginData);
+    return this.http.post<any>(`${this.baseUrl}/usuario/login`, loginData, { withCredentials: true });
   }
 
   logout() {
-    return this.http.post<any>(`${this.baseUrl}/api/usuario/logout`, {});
+    return this.http.post<any>(`${this.baseUrl}/usuario/logout`, {}, { withCredentials: true });
   }
 
   checkSession() {
-    return this.http.get<any>(`${this.baseUrl}/api/usuario/auth`);
+    return this.http.get<any>(`${this.baseUrl}/usuario/auth`, { withCredentials: true });
   }
 }
