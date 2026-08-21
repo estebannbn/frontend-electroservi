@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 })
 export class EditarUsuarioService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/api/usuario`;
+  private apiUrl = `${environment.apiUrl}/usuario`;
 
   editarUsuario(id: number, datos: any) {
     return this.http.put(`${this.apiUrl}/${id}`, datos);
