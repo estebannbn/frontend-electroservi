@@ -35,7 +35,13 @@ export class LoginPage {
         },
         error: (err) => {
           console.error('Error al iniciar sesión', err);
-          const errorMsg = err.error?.error || 'Credenciales incorrectas';
+
+          let errorMsg = 'Credenciales incorrectas';
+          if (err.status === 0) {
+            errorMsg = 'Error de conexión con el servidor';
+          } else if (err.error?.error) {
+            errorMsg = err.error.error;
+          }
 
           if (errorMsg === 'Usuario no encontrado') {
             this.loginForm.get('mail')?.setErrors({ serverError: errorMsg });

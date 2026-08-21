@@ -4,9 +4,9 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
 export enum tipoElectrodomestico {
-  HELADERA = 'Heladera',
-  LAVARROPAS = 'Lavarropas',
-  AIRE_ACONDICIONADO = 'Aire Acondicionado',
+  HELADERA = 'HELADERA',
+  LAVARROPAS = 'LAVARROPAS',
+  AIRE_ACONDICIONADO = 'AIRE_ACONDICIONADO',
 }
 
 export interface Electrodomestico {
@@ -22,7 +22,7 @@ export interface Electrodomestico {
 export class SolicitarServicioService {
   private apiUrl = `${environment.apiUrl}/electrodomestico`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   crearElectrodomestico(electrodomestico: Electrodomestico): Observable<any> {
     return this.http.post<any>(this.apiUrl, electrodomestico);
@@ -31,7 +31,7 @@ export class SolicitarServicioService {
   obtenerElectrodomesticos(): Observable<Electrodomestico[]> {
     return this.http.get<Electrodomestico[]>(this.apiUrl);
   }
-  
+
   getCurrentUser(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/usuario/auth`, { withCredentials: true });
   }

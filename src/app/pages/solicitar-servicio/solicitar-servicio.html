@@ -7,15 +7,9 @@
     <div class="col-md-6">
       <label for="arrivalDate" class="form-label">Fecha de llegada estimada:</label>
       <div class="input-group">
-        <input
-          id="arrivalDate"
-          name="arrivalDate"
-          class="form-control"
-          placeholder="dd/mm/yyyy"
-          ngbDatepicker
-          #d="ngbDatepicker"
-          [(ngModel)]="service.arrivalDate"
-        />
+        <input id="arrivalDate" name="arrivalDate" class="form-control" placeholder="dd/mm/yyyy" ngbDatepicker
+          #d="ngbDatepicker" [(ngModel)]="service.arrivalDate" [minDate]="minDate" [maxDate]="maxDate"
+          [markDisabled]="isDisabled" />
         <button class="btn btn-outline-secondary" type="button" (click)="d.toggle()">
           📅
         </button>
@@ -26,34 +20,20 @@
       <label for="applianceType" class="form-label">Tipo de electrodoméstico:</label>
       <select id="applianceType" name="applianceType" class="form-select" [(ngModel)]="service.applianceType">
         <option value="">Seleccione tipo</option>
-        <option *ngFor="let type of applianceTypes" [value]="type">{{ type }}</option>
+        <option *ngFor="let tipo of applianceTypes" [value]="tipo">{{ formatApplianceType(tipo) }}</option>
       </select>
     </div>
 
     <div class="col-md-6">
       <label for="brand" class="form-label">Ingrese la marca del electrodoméstico:</label>
-      <input
-        id="brand"
-        name="brand"
-        class="form-control"
-        type="text"
-        placeholder="Ej. Samsung"
-        [(ngModel)]="service.brand"
-        required
-      />
+      <input id="brand" name="brand" class="form-control" type="text" placeholder="Ej. Samsung"
+        [(ngModel)]="service.brand" required />
     </div>
 
     <div class="col-md-6">
       <label for="model" class="form-label">Ingrese el modelo del electrodoméstico:</label>
-      <input
-        id="model"
-        name="model"
-        class="form-control"
-        type="text"
-        placeholder="Ej. No Frost 300L"
-        [(ngModel)]="service.model"
-        required
-      />
+      <input id="model" name="model" class="form-control" type="text" placeholder="Ej. No Frost 300L"
+        [(ngModel)]="service.model" required />
     </div>
   </div>
 
