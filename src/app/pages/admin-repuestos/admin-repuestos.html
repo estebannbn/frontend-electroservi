@@ -1,0 +1,93 @@
+<div class="admin-repuestos container py-4">
+  <div
+    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+    <div class="d-flex align-items-center gap-3 logo-row">
+      <div class="logo-box">E</div>
+      <div>
+        <div class="brand-label">ElectroServi Inc.</div>
+        <div class="text-muted" *ngIf="!selectedRepuesto && !isCreating">Administración de repuestos</div>
+        <div class="text-muted" *ngIf="selectedRepuesto">Modificando repuesto</div>
+        <div class="text-muted" *ngIf="isCreating">Registrando repuesto</div>
+      </div>
+    </div>
+    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="onVolver()">
+      ← Volver
+    </button>
+  </div>
+
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-12 col-md-3 mb-4">
+      <div class="d-grid gap-3">
+        <button class="btn btn-outline-primary py-3 fw-semibold">Solicitar Repuestos</button>
+        <button class="btn btn-outline-primary py-3 fw-semibold">Listado de contacto de proveedores</button>
+        <button class="btn btn-outline-primary py-3 fw-semibold" (click)="iniciarCreacion()">Registrar nuevo
+          repuesto</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-12 col-md-9">
+
+      <!-- List View -->
+      <div *ngIf="!selectedRepuesto && !isCreating" class="repuestos-card p-4 rounded-4 shadow-sm bg-white">
+        <h3 class="mb-4 text-center fw-bold">Repuestos</h3>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="py-3">Denominación</th>
+                <th scope="col" class="text-center py-3">Cantidad Actual</th>
+                <th scope="col" class="text-center py-3">Precio a cobrar al cliente</th>
+                <th scope="col" class="py-3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let repuesto of repuestos">
+                <td class="fw-medium py-3">{{ repuesto.nombre }}</td>
+                <td class="text-center py-3">{{ repuesto.cantidadActual }}</td>
+                <td class="text-center py-3">{{ repuesto.precioVentaActual }}$</td>
+                <td class="text-end py-3">
+                  <button class="btn btn-sm btn-outline-secondary" (click)="seleccionarRepuesto(repuesto)">
+                    Modificar datos
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Form View (Edit or Create) -->
+      <div *ngIf="selectedRepuesto || isCreating" class="edit-card p-4 rounded-4 shadow-sm bg-white">
+        <h3 class="mb-4 text-center fw-bold">
+          {{ isCreating ? 'Registrar nuevo repuesto' : 'Repuesto a modificar' }}
+        </h3>
+        <div class="row gx-3 gy-3 justify-content-center mt-3">
+          <div class="col-12 col-lg-10">
+            <div class="mb-3 d-flex align-items-center flex-wrap flex-md-nowrap">
+              <label class="form-label mb-2 mb-md-0 me-md-3 w-100 text-md-end custom-label">Nombre:</label>
+              <input type="text" class="form-control" [(ngModel)]="editModel.nombre" />
+            </div>
+            <div class="mb-3 d-flex align-items-center flex-wrap flex-md-nowrap">
+              <label class="form-label mb-2 mb-md-0 me-md-3 w-100 text-md-end custom-label">Precio de venta a
+                cliente:</label>
+              <input type="number" class="form-control" [(ngModel)]="editModel.precioVentaActual" />
+            </div>
+            <div class="mb-3 d-flex align-items-center flex-wrap flex-md-nowrap">
+              <label class="form-label mb-2 mb-md-0 me-md-3 w-100 text-md-end custom-label">Stock actual:</label>
+              <input type="number" class="form-control" [(ngModel)]="editModel.cantidadActual" />
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-5">
+              <button class="btn btn-secondary" type="button" (click)="cancelarEdicion()">Cancelar</button>
+              <button class="btn btn-primary" type="button" (click)="aplicarCambios()">
+                {{ isCreating ? 'Aplicar' : 'Aplicar Modificaciones' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

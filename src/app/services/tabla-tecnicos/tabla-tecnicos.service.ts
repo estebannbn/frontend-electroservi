@@ -19,7 +19,7 @@ export interface Usuario {
 })
 export class TablaTecnicosService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/api/usuario`;
+  private apiUrl = `${environment.apiUrl}/usuario`;
 
   obtenerTecnicos(): Observable<{ usuarios: Usuario[] }> {
     return this.http.get<{ usuarios: Usuario[] }>(`${this.apiUrl}?tipo=tecnico`);
