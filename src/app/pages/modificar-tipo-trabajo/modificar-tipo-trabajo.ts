@@ -43,6 +43,10 @@ export class ModificarTipoTrabajo {
     };
   }
 
+  actualizarPorcentajeNegocio() {
+    this.editModel.porcentajeNegocio = 100 - (this.editModel.porcentajeTecnico || 0);
+  }
+
   aplicarCambios() {
     if (!this.selectedTipoTrabajo) {
       return;
