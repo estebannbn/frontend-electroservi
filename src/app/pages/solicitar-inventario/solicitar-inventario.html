@@ -1,0 +1,96 @@
+<div class="container py-4">
+  <div *ngIf="!showModal">
+    <h2 class="mb-5 text-center fw-bold text-dark">
+      Solicitud de {{ tipo }}:
+    </h2>
+
+    <div class="row gx-3 gy-3 justify-content-center mt-4">
+      <div class="col-12 col-md-10 col-lg-8">
+
+        <!-- Busqueda -->
+        <div class="mb-4 d-flex align-items-center">
+          <label class="form-label me-3 mb-0 text-end text-muted" style="min-width: 150px;">
+            Buscar {{ tipo === 'materiales' ? 'material' : 'repuesto' }}:
+          </label>
+          <input type="text" class="form-control me-3" [(ngModel)]="busquedaItem" (input)="buscarItem()" />
+          <button class="btn btn-outline-secondary" type="button" (click)="buscarItem()">Buscar</button>
+        </div>
+
+        <!-- Resultados -->
+        <div class="mb-4 d-flex align-items-start">
+          <label class="form-label me-3 text-end text-muted" style="min-width: 150px;">Resultados:</label>
+          <select class="form-select" size="6" [(ngModel)]="itemSeleccionadoBusqueda">
+            <option *ngFor="let item of resultadosBusqueda" [ngValue]="item">
+              {{ item.nombre }} ({{ item.cantidadActual }} unidades)
+            </option>
+          </select>
+        </div>
+
+        <!-- Cantidad -->
+        <div class="mb-4 d-flex align-items-center justify-content-center">
+          <label class="form-label me-3 mb-0 text-end text-muted">Cantidad:</label>
+          <input type="number" class="form-control me-3" style="max-width: 100px;" [(ngModel)]="cantidadSolicitar"
+            min="1" />
+          <button class="btn btn-outline-secondary" type="button" (click)="agregarALista()">Agregar a la lista</button>
+        </div>
+
+        <!-- Lista a pedir -->
+        <div class="mb-5 d-flex align-items-start">
+          <label class="form-label me-3 text-end text-muted" style="min-width: 150px;">
+            Lista de {{ tipo }}<br>a pedir:
+          </label>
+          <div class="border rounded w-100 bg-white" style="height: 150px; overflow-y: auto;">
+            <ul class="list-group list-group-flush mb-0">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center py-1 px-2 border-0 border-bottom"
+                *ngFor="let list of listaSolicitud; let i = index">
+                <span>{{ list.item.nombre }} ({{ list.cantidad }} unidades)</span>
+                <button class="btn btn-sm text-danger border-0 p-1" (click)="eliminarDeLista(i)" title="Eliminar">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash3" viewBox="0 0 16 16">
+                    <path
+                      d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                  </svg>
+                </button>
+              </li>
+              <!-- Empty state message if needed -->
+              <li *ngIf="listaSolicitud.length === 0" class="list-group-item border-0 text-muted py-2 px-2 text-center"
+                style="font-size: 0.9em;">
+                No hay items agregados.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-center gap-5 mt-4">
+          <button class="btn btn-outline-secondary position-relative px-5 py-2" type="button" (click)="onVolver()">
+            Volver
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
+              style="font-size: 0.5rem;">⚡</span>
+          </button>
+          <button class="btn btn-info text-white position-relative px-5 py-2" type="button" (click)="enviarSolicitud()">
+            Enviar
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
+              style="font-size: 0.5rem;">⚡</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal / Mensaje -->
+  <div *ngIf="showModal" class="d-flex justify-content-center mt-5">
+    <div class="card shadow-sm border" style="width: 500px;">
+      <div class="card-body text-center p-5">
+        <h3 class="mb-5 fw-bold text-dark">pedido enviado correctamente</h3>
+        <button class="btn btn-outline-secondary position-relative px-4 py-2" (click)="cerrarModal()">
+          ¡OK!
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
+            style="font-size: 0.5rem;">⚡</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

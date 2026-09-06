@@ -14,6 +14,7 @@ import { ModificarTipoTrabajo } from './pages/modificar-tipo-trabajo/modificar-t
 import { TecnicosDashboard } from './pages/tecnicos-dashboard/tecnicos-dashboard';
 import { AdminMateriales } from './pages/admin-materiales/admin-materiales';
 import { AdminRepuestos } from './pages/admin-repuestos/admin-repuestos';
+import { SolicitarInventario } from './pages/solicitar-inventario/solicitar-inventario';
 
 // Guards
 import { adminGuard } from './auth/admin-guard';
@@ -32,7 +33,9 @@ export const routes: Routes = [
             { path: 'registrar-pago', component: RegistrarPago },
             { path: 'modificar-tipo-trabajo', component: ModificarTipoTrabajo },
             { path: 'materiales', component: AdminMateriales },
-            { path: 'repuestos', component: AdminRepuestos }
+            { path: 'materiales/solicitud', component: SolicitarInventario },
+            { path: 'repuestos', component: AdminRepuestos },
+            { path: 'repuestos/solicitud', component: SolicitarInventario }
         ],
         canActivate: [adminGuard]
     },

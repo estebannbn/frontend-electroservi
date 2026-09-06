@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RepuestosService, Repuesto } from '../../services/repuestos/repuestos.service';
 
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-admin-repuestos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './admin-repuestos.html',
   styleUrls: ['./admin-repuestos.css']
 })
