@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MaterialesService, Material } from '../../services/materiales/materiales.service';
 
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-admin-materiales',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './admin-materiales.html',
   styleUrls: ['./admin-materiales.css'],
 })
