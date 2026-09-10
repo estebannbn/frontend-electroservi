@@ -15,6 +15,7 @@ import { TecnicosDashboard } from './pages/tecnicos-dashboard/tecnicos-dashboard
 import { AdminMateriales } from './pages/admin-materiales/admin-materiales';
 import { AdminRepuestos } from './pages/admin-repuestos/admin-repuestos';
 import { SolicitarInventario } from './pages/solicitar-inventario/solicitar-inventario';
+import { ServiciosCargo } from './pages/servicios-cargo/servicios-cargo';
 
 // Guards
 import { adminGuard } from './auth/admin-guard';
@@ -52,6 +53,7 @@ export const routes: Routes = [
         path: 'tecnicos',
         children: [
             { path: '', component: TecnicosDashboard },
+            { path: 'servicios', component: ServiciosCargo },
         ],
         canActivate: [tecnicoGuard]
     },

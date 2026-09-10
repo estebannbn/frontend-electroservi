@@ -29,4 +29,8 @@ export class RepuestosService {
   crearRepuesto(repuesto: Omit<Repuesto, 'id'>): Observable<Repuesto> {
     return this.http.post<Repuesto>(this.apiUrl, repuesto);
   }
+
+  actualizarRepuesto(id: number, repuesto: Omit<Repuesto, 'id'>): Observable<Repuesto> {
+    return this.http.put<Repuesto>(`${this.apiUrl}/${id}`, repuesto);
+  }
 }

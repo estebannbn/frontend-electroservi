@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceTs } from '../../services/auth-service/auth.service';
 
@@ -12,13 +12,14 @@ import { AuthServiceTs } from '../../services/auth-service/auth.service';
 export class TecnicosDashboard implements OnInit {
   tecnicoNombre: string = '';
 
-  constructor(private authService: AuthServiceTs, private router: Router) { }
+  constructor(private authService: AuthServiceTs, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.authService.checkSession().subscribe({
       next: (res) => {
         if (res.user && res.user.nombre) {
           this.tecnicoNombre = res.user.nombre;
+          this.cdr.detectChanges();
         }
       },
       error: (err) => {

@@ -83,16 +83,21 @@ export class AdminMateriales implements OnInit {
       return;
     }
 
-    if (!this.selectedMaterial) {
+    if (!this.selectedMaterial || !this.selectedMaterial.id) {
       return;
     }
 
-    this.selectedMaterial.nombre = this.editModel.nombre;
-    this.selectedMaterial.precioVentaActual = this.editModel.precioVentaActual;
-    this.selectedMaterial.cantidadActual = this.editModel.cantidadActual;
-    this.selectedMaterial.cantidadAlerta = this.editModel.cantidadAlerta;
-    this.selectedMaterial = null;
-    alert('Los datos del material se aplicaron localmente.');
+    this.materialesService.actualizarMaterial(this.selectedMaterial.id, this.editModel).subscribe({
+      next: () => {
+        alert('Material actualizado exitosamente.');
+        this.selectedMaterial = null;
+        this.cargarMateriales();
+      },
+      error: (err) => {
+        console.error('Error al actualizar material:', err);
+        alert('Ocurrió un error al actualizar el material.');
+      }
+    });
   }
 
   cancelarEdicion() {

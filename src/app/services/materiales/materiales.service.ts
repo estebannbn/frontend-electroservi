@@ -30,4 +30,8 @@ export class MaterialesService {
   crearMaterial(material: Omit<Material, 'id'>): Observable<Material> {
     return this.http.post<Material>(this.apiUrl, material);
   }
+
+  actualizarMaterial(id: number, material: Omit<Material, 'id'>): Observable<Material> {
+    return this.http.put<Material>(`${this.apiUrl}/${id}`, material);
+  }
 }
