@@ -20,4 +20,9 @@ export class ListaServiciosService {
     }
     return this.http.get<Servicio[]>(url);
   }
+
+  obtenerServiciosTecnico(tecnicoId: number): Observable<Servicio[]> {
+    let url = `${this.baseUrl}/servicio?tecnicoId=${tecnicoId}`;
+    return this.http.get<Servicio[]>(url);
+  }
 }

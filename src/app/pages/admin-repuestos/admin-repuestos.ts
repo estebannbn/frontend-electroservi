@@ -81,16 +81,21 @@ export class AdminRepuestos implements OnInit {
       return;
     }
 
-    if (!this.selectedRepuesto) {
+    if (!this.selectedRepuesto || !this.selectedRepuesto.id) {
       return;
     }
 
-    // Actualización local por ahora si no hay endpoint PUT
-    this.selectedRepuesto.nombre = this.editModel.nombre;
-    this.selectedRepuesto.precioVentaActual = this.editModel.precioVentaActual;
-    this.selectedRepuesto.cantidadActual = this.editModel.cantidadActual;
-    this.selectedRepuesto = null;
-    alert('Los datos del repuesto se aplicaron localmente.');
+    this.repuestosService.actualizarRepuesto(this.selectedRepuesto.id, this.editModel).subscribe({
+      next: () => {
+        alert('Repuesto actualizado exitosamente.');
+        this.selectedRepuesto = null;
+        this.cargarRepuestos();
+      },
+      error: (err) => {
+        console.error('Error al actualizar repuesto:', err);
+        alert('Ocurrió un error al actualizar el repuesto.');
+      }
+    });
   }
 
   cancelarEdicion() {
@@ -100,10 +105,10 @@ export class AdminRepuestos implements OnInit {
 
   onVolver() {
     if (this.selectedRepuesto || this.isCreating) {
-        this.selectedRepuesto = null;
-        this.isCreating = false;
+      this.selectedRepuesto = null;
+      this.isCreating = false;
     } else {
-        this.router.navigate(['/admin']);
+      this.router.navigate(['/admin']);
     }
   }
 }
