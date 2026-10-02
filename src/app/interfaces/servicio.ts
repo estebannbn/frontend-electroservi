@@ -29,4 +29,5 @@ export interface Servicio {
     electrodomestico?: Electrodomestico;
     itemsMaterial?: ItemDeMaterial[];
     itemsRepuesto?: ItemDeRepuesto[];
+    trabajos?: any[];
 }

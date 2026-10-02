@@ -48,7 +48,6 @@ export class ServiciosCargo implements OnInit {
   }
 
   relevar(servicio: Servicio) {
-    // Navigate to relevar or handle it
-    console.log('Relevar', servicio.id);
+    this.router.navigate(['/tecnicos/servicios', servicio.id]);
   }
 }

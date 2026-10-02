@@ -1,0 +1,98 @@
+<div class="container-fluid p-4 bg-white" style="min-height: 100vh;">
+  <!-- Header -->
+  <div class="mb-4">
+    <h2 class="fw-bold mb-2" style="font-family: Arial, sans-serif;">ElectroServi <span class="fs-5 fw-normal">Inc.</span></h2>
+    <button class="btn bg-white border border-dark rounded-2 btn-sm text-dark px-3 py-1 text-start" style="font-size: 0.8rem; line-height: 1.2;" routerLink="/tecnicos/servicios">
+      &lt;-- volver a menu de<br>técnico
+    </button>
+  </div>
+
+  <div *ngIf="servicio" class="d-flex flex-column align-items-center w-100">
+    <!-- Top bar (Gray Box) -->
+    <div class="border border-secondary w-100 mb-5 d-flex align-items-center justify-content-center flex-wrap gap-4 py-3 px-2" style="max-width: 1200px; background-color: #e0e0e0;">
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-dark small" style="font-size: 0.85rem;">Electrodomestico:</span>
+          <input type="text" class="form-control form-control-sm bg-white border-secondary rounded-0" style="width: 150px; font-size: 0.85rem;" readonly [value]="servicio.electrodomestico?.tipo || ''">
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-dark small" style="font-size: 0.85rem;">Modelo:</span>
+          <input type="text" class="form-control form-control-sm bg-white border-secondary rounded-0" style="width: 150px; font-size: 0.85rem;" readonly [value]="servicio.electrodomestico?.modelo || ''">
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-dark small" style="font-size: 0.85rem;">Marca:</span>
+          <input type="text" class="form-control form-control-sm bg-white border-secondary rounded-0" style="width: 150px; font-size: 0.85rem;" readonly [value]="servicio.electrodomestico?.marca || ''">
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-dark small" style="font-size: 0.85rem;">Fecha-Hora asignación:</span>
+          <input type="text" class="form-control form-control-sm bg-white border-secondary rounded-0" style="width: 160px; font-size: 0.85rem;" readonly [value]="servicio.trabajos?.[0]?.fechaDesde | date:'dd/MM/yyyy HH:mm:ss'">
+        </div>
+    </div>
+
+    <!-- Tipo de reparacion -->
+    <div class="d-flex justify-content-center align-items-center gap-4 mb-5 w-100">
+      <span class="text-dark small" style="font-size: 0.9rem;">Tipo de reparacion:</span>
+      <input type="text" class="form-control form-control-sm border-secondary rounded-0 shadow-sm" style="width: 200px; background-color: #e0e0e0;" disabled>
+    </div>
+
+    <!-- Tables -->
+    <div class="d-flex justify-content-center gap-5 w-100 mb-5 flex-wrap">
+      <!-- Repuestos -->
+      <div style="width: 45%; max-width: 450px;">
+        <h6 class="text-center fw-bold mb-3" style="font-size: 1.1rem;">Repuestos pedidos</h6>
+        <table class="table table-bordered text-center align-middle border-dark" style="border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th class="fw-normal border-dark small bg-white" style="font-size: 0.85rem; width: 40%;">Repuesto</th>
+              <th class="fw-normal border-dark small bg-white" style="font-size: 0.85rem; width: 30%;">Cantidad de<br>Repuesto</th>
+              <th class="fw-normal border-dark small bg-white" style="font-size: 0.85rem; width: 30%;">Precio por Unidad<br>de Repuesto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of servicio.itemsRepuesto">
+              <td class="border-dark small bg-white">{{ item.repuesto?.nombre }}</td>
+              <td class="border-dark small bg-white">{{ item.cantidadDeRepuesto }}</td>
+              <td class="border-dark small bg-white">{{ item.repuesto?.precioVentaActual }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Materiales -->
+      <div style="width: 45%; max-width: 450px;">
+        <h6 class="text-center fw-bold mb-3" style="font-size: 1.1rem;">Materiales pedidos</h6>
+        <table class="table table-bordered text-center align-middle border-dark" style="border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th class="fw-normal border-dark small bg-white" style="font-size: 0.85rem; width: 40%;">Material</th>
+              <th class="fw-normal border-dark small bg-white" style="font-size: 0.85rem; width: 30%;">Cantidad de<br>Material (en kg)</th>
+              <th class="fw-normal border-dark small bg-white" style="font-size: 0.85rem; width: 30%;">Precio Total del<br>uso del Material</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of servicio.itemsMaterial">
+              <td class="border-dark small bg-white">{{ item.material?.nombre }}</td>
+              <td class="border-dark small bg-white">{{ item.cantidadDeMaterial }}</td>
+              <td class="border-dark small bg-white">{{ item.cantidadDeMaterial * (item.material?.precioVentaActual || 0) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex flex-column align-items-center gap-2 mb-5 mt-2">
+      <button class="btn text-white rounded-1 shadow-sm" style="background-color: #1a9ee0; width: 180px; font-size: 0.95rem;" [routerLink]="['/tecnicos/servicios', servicio.id, 'pedir-repuestos']">pedir repuestos</button>
+      <button class="btn text-white rounded-1 shadow-sm" style="background-color: #1a9ee0; width: 180px; font-size: 0.95rem;" [routerLink]="['/tecnicos/servicios', servicio.id, 'pedir-materiales']">pedir materiales</button>
+      <button class="btn text-white rounded-1 shadow-sm mt-1" style="background-color: #1a9ee0; width: 180px; font-size: 0.95rem;" [routerLink]="['/tecnicos/servicios', servicio.id, 'finalizar']">FINALIZAR</button>
+    </div>
+  </div>
+
+  <div *ngIf="!servicio && !errorMessage" class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Cargando datos del servicio...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-5 text-center">
+    {{ errorMessage }}
+  </div>
+</div>

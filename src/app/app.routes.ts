@@ -16,11 +16,17 @@ import { AdminMateriales } from './pages/admin-materiales/admin-materiales';
 import { AdminRepuestos } from './pages/admin-repuestos/admin-repuestos';
 import { SolicitarInventario } from './pages/solicitar-inventario/solicitar-inventario';
 import { ServiciosCargo } from './pages/servicios-cargo/servicios-cargo';
+import { AdminServicio } from './pages/admin-servicio/admin-servicio';
+import { RelevarServicio } from './pages/relevar-servicio/relevar-servicio';
 
 // Guards
 import { adminGuard } from './auth/admin-guard';
 import { clienteGuard } from './auth/cliente-guard';
 import { tecnicoGuard } from './auth/tecnico-guard';
+
+import { PedirRepuestosComponent } from './pages/pedir-repuestos/pedir-repuestos';
+import { PedirMaterialesComponent } from './pages/pedir-materiales/pedir-materiales';
+import { FinalizarRelevamientoComponent } from './pages/finalizar-relevamiento/finalizar-relevamiento';
 
 export const routes: Routes = [
     { path: 'login', component: LoginPage },
@@ -36,7 +42,8 @@ export const routes: Routes = [
             { path: 'materiales', component: AdminMateriales },
             { path: 'materiales/solicitud', component: SolicitarInventario },
             { path: 'repuestos', component: AdminRepuestos },
-            { path: 'repuestos/solicitud', component: SolicitarInventario }
+            { path: 'repuestos/solicitud', component: SolicitarInventario },
+            { path: 'servicio', component: AdminServicio }
         ],
         canActivate: [adminGuard]
     },
@@ -54,6 +61,10 @@ export const routes: Routes = [
         children: [
             { path: '', component: TecnicosDashboard },
             { path: 'servicios', component: ServiciosCargo },
+            { path: 'servicios/:id', component: RelevarServicio },
+            { path: 'servicios/:id/pedir-repuestos', component: PedirRepuestosComponent },
+            { path: 'servicios/:id/pedir-materiales', component: PedirMaterialesComponent },
+            { path: 'servicios/:id/finalizar', component: FinalizarRelevamientoComponent },
         ],
         canActivate: [tecnicoGuard]
     },

@@ -25,4 +25,39 @@ export class ListaServiciosService {
     let url = `${this.baseUrl}/servicio?tecnicoId=${tecnicoId}`;
     return this.http.get<Servicio[]>(url);
   }
+
+  obtenerServiciosBusqueda(id?: number, tecnicoEmail?: string): Observable<Servicio[]> {
+    let url = `${this.baseUrl}/servicio?`;
+    if (id) {
+      url += `id=${id}&`;
+    }
+    if (tecnicoEmail) {
+      url += `tecnicoEmail=${tecnicoEmail}`;
+    }
+    return this.http.get<Servicio[]>(url);
+  }
+
+  agregarRepuestoAServicio(data: { cantidadDeRepuesto: number, repuestoId: number, servicioId: number }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/item-repuesto`, data);
+  }
+
+  editarRepuestoDeServicio(servicioId: number, repuestoId: number, data: { cantidadDeRepuesto: number, repuestoId: number, servicioId: number }): Observable<any> {
+    return this.http.put(`${this.baseUrl}/item-repuesto/${servicioId}/${repuestoId}`, data);
+  }
+
+  eliminarRepuestoDeServicio(servicioId: number, repuestoId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/item-repuesto/${servicioId}/${repuestoId}`);
+  }
+
+  agregarMaterialAServicio(data: { cantidadDeMaterial: number, materialId: number, servicioId: number }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/item-material`, data);
+  }
+
+  editarMaterialDeServicio(servicioId: number, materialId: number, data: { cantidadDeMaterial: number, materialId: number, servicioId: number }): Observable<any> {
+    return this.http.put(`${this.baseUrl}/item-material/${servicioId}/${materialId}`, data);
+  }
+
+  eliminarMaterialDeServicio(servicioId: number, materialId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/item-material/${servicioId}/${materialId}`);
+  }
 }
