@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h3 class="mb-4 fw-bold text-dark">Servicios Solicitados</h3>
+    <h3 class="services-heading mb-4 fw-bold text-center">Servicios solicitados</h3>
     
     <div class="table-responsive bg-white rounded-4 shadow-sm p-3">
         <table class="table table-hover align-middle mb-0">
@@ -16,7 +16,7 @@
                 @for (servicio of servicios; track servicio.id) {
                 <tr>
                     <!-- el nombre del tipo viene en la relación model Prisma -->
-                    <td class="fw-semibold text-dark border-0 py-3">{{ (servicio.electrodomestico?.tipo || 'N/A') | uppercase }}</td>
+                    <td class="fw-semibold text-dark border-0 py-3">{{ formatApplianceName(servicio.electrodomestico?.tipo) }}</td>
                     <td class="text-muted border-0 py-3">{{ servicio.electrodomestico?.modelo || '-' }}</td>
                     <td class="border-0 py-3">
                         <span class="badge rounded-pill px-3 py-2 fw-normal" 

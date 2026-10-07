@@ -37,6 +37,13 @@ export class ListaServiciosService {
     return this.http.get<Servicio[]>(url);
   }
 
+  finalizarServicio(servicioId: number, comentario: string): Observable<{ servicio: Servicio }> {
+    return this.http.put<{ servicio: Servicio }>(
+      `${this.baseUrl}/servicio/${servicioId}/finalizar`,
+      { comentario }
+    );
+  }
+
   agregarRepuestoAServicio(data: { cantidadDeRepuesto: number, repuestoId: number, servicioId: number }): Observable<any> {
     return this.http.post(`${this.baseUrl}/item-repuesto`, data);
   }

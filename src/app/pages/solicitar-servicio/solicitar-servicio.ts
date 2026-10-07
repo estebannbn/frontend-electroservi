@@ -1,8 +1,9 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, inject, OnInit, Injectable, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbDatepickerModule, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   SolicitarServicioService,
   tipoElectrodomestico,
@@ -34,7 +35,7 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 
 @Component({
   selector: 'app-solicitar-servicio',
-  imports: [CommonModule, FormsModule, NgbDatepickerModule],
+  imports: [CommonModule, FormsModule, NgbDatepickerModule, NgbModalModule],
   templateUrl: './solicitar-servicio.html',
   styleUrls: ['./solicitar-servicio.css'],
   providers: [
@@ -44,10 +45,11 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 export class SolicitarServicio implements OnInit {
   constructor(private router: Router, private solicitarServicio: SolicitarServicioService) { }
 
+  @ViewChild('successDialog') private successDialog!: TemplateRef<unknown>;
+  private modalService = inject(NgbModal);
+
   electrodomesticos: Electrodomestico[] = [];
   applianceTypes: string[] = Object.values(tipoElectrodomestico);
-  pedidoExitoso = false;
-
   minDate!: NgbDateStruct;
   maxDate!: NgbDateStruct;
 
@@ -141,8 +143,12 @@ export class SolicitarServicio implements OnInit {
 
           this.solicitarServicio.crearServicio(servicio).subscribe({
             next: () => {
-              window.alert('Solicitud realizada con éxito');
-              this.router.navigate(['/clientes']);
+              const modalRef = this.modalService.open(this.successDialog, {
+                centered: true,
+                backdrop: 'static',
+                ariaLabelledBy: 'service-success-title',
+              });
+              modalRef.closed.subscribe(() => this.router.navigate(['/clientes']));
             },
             error: (error) => {
               console.error('Error al crear servicio:', error);

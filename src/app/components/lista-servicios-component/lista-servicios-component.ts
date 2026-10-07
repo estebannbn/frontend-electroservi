@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
-import { DatePipe, UpperCasePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ListaServiciosService } from '../../services/lista-servicios/lista-servicios.service';
@@ -8,7 +8,7 @@ import { Servicio } from '../../interfaces/servicio';
 @Component({
   selector: 'app-lista-servicios-component',
   standalone: true,
-  imports: [DatePipe, UpperCasePipe],
+  imports: [DatePipe],
   templateUrl: './lista-servicios-component.html',
   styleUrl: './lista-servicios-component.css'
 })
@@ -17,6 +17,15 @@ export class ListaServiciosComponent implements OnInit {
   private serviciosService = inject(ListaServiciosService);
   private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
+
+  formatApplianceName(tipo: string | undefined): string {
+    if (!tipo) {
+      return 'N/A';
+    }
+
+    const nombre = tipo.replace(/_/g, ' ').toLowerCase();
+    return nombre.charAt(0).toUpperCase() + nombre.slice(1);
+  }
 
   ngOnInit(): void {
     // Obtenemos el cliente logueado desde la sesión

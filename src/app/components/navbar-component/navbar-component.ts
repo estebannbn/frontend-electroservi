@@ -21,12 +21,13 @@ export class NavbarComponent {
     return url.includes('/login') || url.includes('/registro');
   }
 
-  goBack() {
-    this.location.back();
-  }
+
 
   modificarDatos() {
-    this.router.navigate(['/clientes/editar-perfil']);
+    const rutaPerfil = this.router.url.startsWith('/tecnicos')
+      ? '/tecnicos/editar-perfil'
+      : '/clientes/editar-perfil';
+    this.router.navigate([rutaPerfil]);
   }
 
   cerrarSesion() {

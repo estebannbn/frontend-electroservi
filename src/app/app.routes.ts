@@ -60,13 +60,15 @@ export const routes: Routes = [
         path: 'tecnicos',
         children: [
             { path: '', component: TecnicosDashboard },
+            { path: 'editar-perfil', component: EditarUsuario },
             { path: 'servicios', component: ServiciosCargo },
             { path: 'servicios/:id', component: RelevarServicio },
             { path: 'servicios/:id/pedir-repuestos', component: PedirRepuestosComponent },
             { path: 'servicios/:id/pedir-materiales', component: PedirMaterialesComponent },
             { path: 'servicios/:id/finalizar', component: FinalizarRelevamientoComponent },
         ],
-        canActivate: [tecnicoGuard]
+        canActivate: [tecnicoGuard],
+        runGuardsAndResolvers: 'always'
     },
     { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
