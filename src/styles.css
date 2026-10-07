@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+
+.btn-menu-back {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 2.5rem;
+	padding: 0.5rem 0.9rem;
+	border: 1px solid #c8d6df;
+	border-radius: 0.5rem;
+	background: #fff;
+	color: #31566c;
+	font-weight: 600;
+	line-height: 1.25;
+	text-decoration: none;
+	transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.admin-page-title {
+	margin: 0 0 1.75rem;
+	color: #193c50;
+	font-size: 1.8rem;
+	font-weight: 700;
+	line-height: 1.2;
+	text-align: center;
+}
+
+.btn-menu-back:hover {
+	border-color: #7ba3b7;
+	background: #f1f7fa;
+	color: #20465c;
+	transform: translateY(-1px);
+}
+
+.btn-menu-back:focus-visible {
+	outline: 3px solid rgba(49, 112, 145, 0.35);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.btn-menu-back {
+		transition: none;
+	}
+}

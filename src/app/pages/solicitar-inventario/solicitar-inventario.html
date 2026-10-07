@@ -1,5 +1,10 @@
 <div class="container py-4">
   <div *ngIf="!showModal">
+    <div class="mb-4">
+      <button class="btn-menu-back" type="button" (click)="onVolver()">
+        &larr; Volver al menú
+      </button>
+    </div>
     <h2 class="mb-5 text-center fw-bold text-dark">
       Solicitud de {{ tipo }}:
     </h2>
@@ -64,11 +69,6 @@
 
         <!-- Botones -->
         <div class="d-flex justify-content-center gap-5 mt-4">
-          <button class="btn btn-outline-secondary position-relative px-5 py-2" type="button" (click)="onVolver()">
-            Volver
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
-              style="font-size: 0.5rem;">⚡</span>
-          </button>
           <button class="btn btn-info text-white position-relative px-5 py-2" type="button" (click)="enviarSolicitud()">
             Enviar
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"

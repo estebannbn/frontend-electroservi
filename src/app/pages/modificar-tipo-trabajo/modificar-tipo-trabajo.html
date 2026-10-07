@@ -1,17 +1,10 @@
 <div class="modificar-tipo-trabajo container py-4">
-  <div
-    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
-    <div class="d-flex align-items-center gap-3 logo-row">
-      <div class="logo-box">E</div>
-      <div>
-        <div class="brand-label">ElectroServi Inc.</div>
-        <div class="text-muted">Administración de tipos de trabajo</div>
-      </div>
-    </div>
-    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="onVolver()">
-      ← volver a menú de administrador
+  <div class="mb-4">
+    <button class="btn-menu-back" type="button" (click)="onVolver()">
+      &larr; Volver al menú
     </button>
   </div>
+  <h1 class="admin-page-title">Administración de tipos de trabajo</h1>
 
   <div *ngIf="selectedTipoTrabajo" class="edit-card p-4 rounded-4 shadow-sm mb-4 bg-white">
     <h3 class="mb-4 text-center">Modificar tipo de trabajo: {{ selectedTipoTrabajo.nombre }}</h3>

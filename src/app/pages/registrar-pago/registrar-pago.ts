@@ -1,10 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PagoComponent } from '../../components/pago-component/pago-component';
 import { TablaTecnicosService, Usuario } from '../../services/tabla-tecnicos/tabla-tecnicos.service';
 
 @Component({
   selector: 'app-registrar-pago',
-  imports: [PagoComponent],
+  imports: [PagoComponent, RouterLink],
   templateUrl: './registrar-pago.html',
   styleUrl: './registrar-pago.css',
 })

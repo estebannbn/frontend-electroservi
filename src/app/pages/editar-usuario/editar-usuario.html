@@ -1,10 +1,8 @@
 <div class="container mx-auto p-4 p-md-5 bg-white rounded-4 shadow-sm mt-4 animated-form" style="max-width: 800px;">
-    <!-- Top header with 'Volver al menu' and Logo -->
     <div class="d-flex align-items-center mb-4">
-        <button type="button" class="btn btn-outline-secondary me-3" (click)="volverAlMenu()">
-            &larr; Volver al menu
+        <button type="button" class="btn-menu-back me-3" (click)="volverAlMenu()">
+            &larr; Volver al menú
         </button>
-        <h3 class="mb-0 fw-bold ms-auto">ElectroServi <span class="fs-6 fw-normal text-muted">Inc.</span></h3>
     </div>
 
     <form [formGroup]="editarUsuarioForm" (ngSubmit)="onSubmit()">
@@ -54,12 +52,27 @@
             </div>
 
             <div class="col-md-6">
-                <label class="form-label fw-semibold text-secondary ms-1">Contraseña:</label>
+                <label class="form-label fw-semibold text-secondary ms-1">Nueva contraseña:</label>
                 <input type="password" formControlName="contraseña" class="form-control form-control-lg bg-light"
                     placeholder="*************"
                     [class.is-invalid]="editarUsuarioForm.get('contraseña')?.invalid && editarUsuarioForm.get('contraseña')?.touched">
-                @if(editarUsuarioForm.get('contraseña')?.invalid && editarUsuarioForm.get('contraseña')?.touched) {
-                <div class="invalid-feedback">Contraseña inválida o muy corta.</div>
+                @if(editarUsuarioForm.get('contraseña')?.touched) {
+                @if(editarUsuarioForm.get('contraseña')?.hasError('required')) {
+                <div class="invalid-feedback d-block">La contraseña es obligatoria.</div>
+                } @else {
+                @if(editarUsuarioForm.get('contraseña')?.hasError('minlength')) {
+                <div class="invalid-feedback d-block">Debe tener al menos 8 caracteres.</div>
+                }
+                @if(editarUsuarioForm.get('contraseña')?.hasError('lowercaseRequired')) {
+                <div class="invalid-feedback d-block">Debe incluir al menos una letra minúscula.</div>
+                }
+                @if(editarUsuarioForm.get('contraseña')?.hasError('uppercaseRequired')) {
+                <div class="invalid-feedback d-block">Debe incluir al menos una letra mayúscula.</div>
+                }
+                @if(editarUsuarioForm.get('contraseña')?.hasError('numberRequired')) {
+                <div class="invalid-feedback d-block">Debe incluir al menos un número.</div>
+                }
+                }
                 }
             </div>
 
@@ -86,3 +99,18 @@
         </div>
     </form>
 </div>
+
+<ng-template #successDialog let-modal>
+    <div class="modal-header border-0 justify-content-center pb-0 pt-4">
+        <div class="success-mark" aria-hidden="true">&#10003;</div>
+    </div>
+    <div class="modal-body px-4 pb-3 pt-3 text-center">
+        <h2 class="h4 fw-bold mb-2" id="profile-success-title">¡Datos modificados con éxito!</h2>
+        <p class="mb-0 text-secondary">Los cambios de tu perfil ya están guardados.</p>
+    </div>
+    <div class="modal-footer border-0 justify-content-center pb-4 pt-0">
+        <button type="button" class="btn-menu-back" (click)="modal.close()">
+            Volver al menú
+        </button>
+    </div>
+</ng-template>

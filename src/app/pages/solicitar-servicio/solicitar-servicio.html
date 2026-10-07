@@ -1,39 +1,62 @@
-<form class="container py-4" #serviceForm="ngForm" (ngSubmit)="onSubmit(serviceForm)" *ngIf="!pedidoExitoso">
-  <div class="text-center mb-4">
-    <h1 class="fw-bold">ElectroServi <small class="text-muted">Inc.</small></h1>
-  </div>
-
+<form class="container py-4" #serviceForm="ngForm" (ngSubmit)="onSubmit(serviceForm)">
   <div class="row justify-content-center gx-4 gy-3">
     <div class="col-md-6">
       <label for="arrivalDate" class="form-label">Fecha de llegada estimada:</label>
       <div class="input-group">
         <input id="arrivalDate" name="arrivalDate" class="form-control" placeholder="dd/mm/yyyy" ngbDatepicker
           #d="ngbDatepicker" [(ngModel)]="service.arrivalDate" [minDate]="minDate" [maxDate]="maxDate"
-          [markDisabled]="isDisabled" />
+          [markDisabled]="isDisabled" required #arrivalDateControl="ngModel"
+          [class.is-invalid]="serviceForm.submitted && arrivalDateControl.invalid"
+          aria-describedby="arrivalDateError" />
         <button class="btn btn-outline-secondary" type="button" (click)="d.toggle()">
           📅
         </button>
       </div>
+      @if (serviceForm.submitted && arrivalDateControl.invalid) {
+        <div class="invalid-feedback d-block" id="arrivalDateError">
+          @if (arrivalDateControl.hasError('required')) {
+            Seleccioná una fecha de llegada.
+          } @else {
+            Ingresá una fecha válida dentro del período permitido.
+          }
+        </div>
+      }
     </div>
 
     <div class="col-md-6">
       <label for="applianceType" class="form-label">Tipo de electrodoméstico:</label>
-      <select id="applianceType" name="applianceType" class="form-select" [(ngModel)]="service.applianceType">
+      <select id="applianceType" name="applianceType" class="form-select" [(ngModel)]="service.applianceType"
+        required #applianceTypeControl="ngModel"
+        [class.is-invalid]="serviceForm.submitted && applianceTypeControl.invalid"
+        aria-describedby="applianceTypeError">
         <option value="">Seleccione tipo</option>
         <option *ngFor="let tipo of applianceTypes" [value]="tipo">{{ formatApplianceType(tipo) }}</option>
       </select>
+      @if (serviceForm.submitted && applianceTypeControl.invalid) {
+        <div class="invalid-feedback d-block" id="applianceTypeError">Seleccioná un tipo de electrodoméstico.</div>
+      }
     </div>
 
     <div class="col-md-6">
       <label for="brand" class="form-label">Ingrese la marca del electrodoméstico:</label>
       <input id="brand" name="brand" class="form-control" type="text" placeholder="Ej. Samsung"
-        [(ngModel)]="service.brand" required />
+        [(ngModel)]="service.brand" required #brandControl="ngModel"
+        [class.is-invalid]="serviceForm.submitted && brandControl.invalid"
+        aria-describedby="brandError" />
+      @if (serviceForm.submitted && brandControl.invalid) {
+        <div class="invalid-feedback d-block" id="brandError">Ingresá la marca del electrodoméstico.</div>
+      }
     </div>
 
     <div class="col-md-6">
       <label for="model" class="form-label">Ingrese el modelo del electrodoméstico:</label>
       <input id="model" name="model" class="form-control" type="text" placeholder="Ej. No Frost 300L"
-        [(ngModel)]="service.model" required />
+        [(ngModel)]="service.model" required #modelControl="ngModel"
+        [class.is-invalid]="serviceForm.submitted && modelControl.invalid"
+        aria-describedby="modelError" />
+      @if (serviceForm.submitted && modelControl.invalid) {
+        <div class="invalid-feedback d-block" id="modelError">Ingresá el modelo del electrodoméstico.</div>
+      }
     </div>
   </div>
 
@@ -45,11 +68,17 @@
   </div>
 </form>
 
-<div class="container py-4 text-center" *ngIf="pedidoExitoso">
-  <div class="alert alert-success rounded-4 shadow-sm">
-    <h2 class="mb-3">pedido hecho correctamente</h2>
-    <button class="btn btn-primary px-4" type="button" (click)="onBack()">
-      menu de clientes
+<ng-template #successDialog let-modal>
+  <div class="modal-header border-0 justify-content-center pb-0 pt-4">
+    <div class="success-mark" aria-hidden="true">&#10003;</div>
+  </div>
+  <div class="modal-body px-4 pb-3 pt-3 text-center">
+    <h2 class="h4 fw-bold mb-2" id="service-success-title">¡Servicio solicitado con éxito!</h2>
+    <p class="mb-0 text-secondary">Tu solicitud ya fue registrada. Podés consultar su estado desde el menú de clientes.</p>
+  </div>
+  <div class="modal-footer border-0 justify-content-center pb-4 pt-0">
+    <button type="button" class="btn-menu-back" (click)="modal.close()">
+      Volver al menú
     </button>
   </div>
-</div>
+</ng-template>

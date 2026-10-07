@@ -30,7 +30,9 @@ export class LoginPage {
           } else if (response.tipo === 'administrador') {
             this.router.navigate(['/admin']);
           } else {
-            this.router.navigate(['/clientes']);
+            this.router.navigate(['/clientes'], {
+              state: { nombreCliente: response.nombre }
+            });
           }
         },
         error: (err) => {

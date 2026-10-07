@@ -1,19 +1,18 @@
 <div class="admin-materiales container py-4">
-  <div
-    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
-    <div class="d-flex align-items-center gap-3 logo-row">
-      <div class="logo-box">E</div>
-      <div>
-        <div class="brand-label">ElectroServi Inc.</div>
-        <div class="text-muted" *ngIf="!selectedMaterial && !isCreating">Administración de materiales</div>
-        <div class="text-muted" *ngIf="selectedMaterial">Modificando material</div>
-        <div class="text-muted" *ngIf="isCreating">Registrando material</div>
-      </div>
-    </div>
-    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="onVolver()">
-      ← Volver
+  <div class="mb-4">
+    <button class="btn-menu-back" type="button" (click)="onVolver()">
+      &larr; Volver al menú
     </button>
   </div>
+  <h1 class="admin-page-title">
+    @if (selectedMaterial) {
+      Modificando material
+    } @else if (isCreating) {
+      Registrando material
+    } @else {
+      Administración de materiales
+    }
+  </h1>
 
   <div class="row">
     <!-- Sidebar -->
