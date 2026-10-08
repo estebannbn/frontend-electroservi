@@ -1,0 +1,155 @@
+<div class="container my-5" style="max-width: 1200px;">
+    <!-- Header -->
+    <h1 class="fw-bold mb-4" style="color: #4a4a4a; font-family: 'Arial', sans-serif;">
+        ElectroServi <span class="fs-5 fw-normal text-muted">Inc.</span>
+    </h1>
+
+    @if (servicio) {
+    <!-- Banner superior -->
+    <div class="p-3 mb-4 text-center border" style="background-color: #f0f0f0;">
+        <h5 class="m-0 fw-bold text-secondary text-uppercase" style="letter-spacing: 1px;">
+            diagnostico logrado &nbsp;---&nbsp; enviado el {{ (servicio.fechaFin | date:'dd/MM/yy') ||
+            (servicio.fechaDiagnostico | date:'dd/MM/yy') || 'hoy' }} &nbsp;---&nbsp; mensaje enviado por administracion
+        </h5>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="border p-4 shadow-sm" style="background-color: #f4f4f4;">
+        <p class="mb-1" style="font-size: 1.1rem; color: #333;">
+            Buenos dias señor/a cliente, le informamos que su {{ formatApplianceName(servicio.electrodomestico?.tipo) }}
+            {{ servicio.electrodomestico?.modelo || '' }} ya ha sido diagnosticado.
+        </p>
+        <p class="mb-4" style="font-size: 1.1rem; color: #333;">
+            Observaciones del técnico: "{{ servicio.comentario || 'Sin observaciones' }}".
+        </p>
+
+        <div class="row gx-5">
+            <!-- Tabla Repuestos -->
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="table-responsive bg-white">
+                    <table class="table table-bordered text-center align-middle m-0" style="font-size: 0.95rem;">
+                        <thead>
+                            <tr>
+                                <th class="fw-normal text-muted">Repuesto</th>
+                                <th class="fw-normal text-muted">Cantidad de<br>Repuesto</th>
+                                <th class="fw-normal text-muted">Precio por Unidad<br>de Repuesto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (item of servicio.itemsRepuesto || []; track item.repuestoId) {
+                            <tr>
+                                <td>{{ item.repuesto?.nombre }}</td>
+                                <td>{{ item.cantidadDeRepuesto }}</td>
+                                <td>{{ getRepuestoPrice(item) }}</td>
+                            </tr>
+                            }
+                            @if (!servicio.itemsRepuesto || servicio.itemsRepuesto.length === 0) {
+                            <tr>
+                                <td colspan="3" class="text-muted">No se utilizan repuestos</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabla Materiales -->
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="table-responsive bg-white">
+                    <table class="table table-bordered text-center align-middle m-0" style="font-size: 0.95rem;">
+                        <thead>
+                            <tr>
+                                <th class="fw-normal text-muted">Material</th>
+                                <th class="fw-normal text-muted">Cantidad de<br>Material (en kg)</th>
+                                <th class="fw-normal text-muted">Precio Total del<br>uso del Material</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (item of servicio.itemsMaterial || []; track item.materialId) {
+                            <tr>
+                                <td>{{ item.material?.nombre }}</td>
+                                <td>{{ item.cantidadDeMaterial }}</td>
+                                <td>{{ getMaterialPrice(item) }}</td>
+                            </tr>
+                            }
+                            @if (!servicio.itemsMaterial || servicio.itemsMaterial.length === 0) {
+                            <tr>
+                                <td colspan="3" class="text-muted">No se utilizan materiales</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Panel de Precios -->
+            <div class="col-lg-4 d-flex flex-column justify-content-center align-items-end pe-4"
+                style="font-size: 1.05rem;">
+                <div class="d-flex justify-content-end align-items-center mb-3 w-100">
+                    <span class="me-3 text-secondary text-end">Precio del diagnóstico:</span>
+                    <input type="text" class="form-control text-center bg-white" style="width: 100px; padding: 0.2rem;"
+                        [value]="precioDiagnostico" readonly>
+                    <span class="ms-2 fw-bold">$</span>
+                </div>
+
+                <div class="d-flex justify-content-end align-items-center mb-3 w-100">
+                    <span class="me-3 text-secondary text-end">Tipo de trabajo:</span>
+                    <input type="text" class="form-control text-center bg-white" style="width: 100px; padding: 0.2rem;"
+                        [value]="servicio.tipoTrabajo?.nombre || 'general'" readonly>
+                </div>
+
+                <div class="d-flex justify-content-end align-items-center mb-4 w-100">
+                    <span class="me-3 text-secondary text-end">Precio del tipo de trabajo:</span>
+                    <input type="text" class="form-control text-center bg-white" style="width: 100px; padding: 0.2rem;"
+                        [value]="precioTipoTrabajo" readonly>
+                    <span class="ms-2 fw-bold">$</span>
+                </div>
+
+                <div class="d-flex justify-content-end align-items-center w-100">
+                    <span class="me-3 text-secondary text-end">Precio estimado:</span>
+                    <input type="text" class="form-control text-center bg-white" style="width: 100px; padding: 0.2rem;"
+                        [value]="getPrecioEstimado()" readonly>
+                    <span class="ms-2 fw-bold">$</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="d-flex justify-content-center gap-5 mt-5">
+        <button class="btn btn-outline-secondary position-relative fw-semibold shadow-sm px-4 py-2"
+            style="border-radius: 8px; width: 220px;" (click)="aceptarSoloDiagnostico()" [disabled]="procesando">
+            aceptar solo<br>diagnóstico
+        </button>
+        <button class="btn btn-outline-secondary position-relative fw-semibold shadow-sm px-4 py-2"
+            style="border-radius: 8px; width: 220px;" (click)="aceptarServicioCompleto()" [disabled]="procesando">
+            aceptar servicio<br>completo
+        </button>
+    </div>
+    } @else {
+    <div class="text-center mt-5">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2 text-muted">Cargando presupuesto...</p>
+    </div>
+    }
+
+    <!-- Modal -->
+    @if (mostrarModal) {
+    <div class="modal fade show" style="display: block; background: rgba(0,0,0,0.5);" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Operación Exitosa</h5>
+                    <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ mensajeModal }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="cerrarModal()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

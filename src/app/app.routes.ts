@@ -18,6 +18,8 @@ import { SolicitarInventario } from './pages/solicitar-inventario/solicitar-inve
 import { ServiciosCargo } from './pages/servicios-cargo/servicios-cargo';
 import { AdminServicio } from './pages/admin-servicio/admin-servicio';
 import { RelevarServicio } from './pages/relevar-servicio/relevar-servicio';
+import { NotificacionesCliente } from './pages/notificaciones-cliente/notificaciones-cliente';
+import { PresupuestoCliente } from './pages/presupuesto-cliente/presupuesto-cliente';
 
 // Guards
 import { adminGuard } from './auth/admin-guard';
@@ -52,7 +54,9 @@ export const routes: Routes = [
         children: [
             { path: '', component: ClientesDasbhoard },
             { path: 'editar-perfil', component: EditarUsuario },
-            { path: 'solicitar-servicio', component: SolicitarServicio }
+            { path: 'solicitar-servicio', component: SolicitarServicio },
+            { path: 'notificaciones', component: NotificacionesCliente },
+            { path: 'presupuesto/:id', component: PresupuestoCliente }
         ],
         canActivate: [clienteGuard]
     },

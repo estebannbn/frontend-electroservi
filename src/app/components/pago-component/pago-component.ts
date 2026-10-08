@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RegistrarPagoService } from '../../services/registrar-pago/registrar-pago.service';
 
@@ -13,16 +13,17 @@ export class PagoComponent {
   @Input() email: string = '';
   @Input({ required: true }) tecnicoId!: number;
 
+  @Input({ required: true }) montoPago!: number;
+  
   private registrarPagoService = inject(RegistrarPagoService);
 
-  montoPago: number | null = null;
-  pagoRealizado: boolean = false;
+  pagoRealizado = signal(false);
 
   registrarPago() {
-    if (this.montoPago !== null && this.montoPago > 0) {
+    if (this.montoPago > 0) {
       this.registrarPagoService.registrarPago({ monto: this.montoPago, tecnicoId: this.tecnicoId }).subscribe({
         next: () => {
-          this.pagoRealizado = true;
+          this.pagoRealizado.set(true);
         },
         error: (err) => {
           console.error("Error al registrar el pago", err);

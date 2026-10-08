@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ListaServiciosComponent } from '../../components/lista-servicios-component/lista-servicios-component';
 import { AuthServiceTs } from '../../services/auth-service/auth.service';
 
 @Component({
   selector: 'app-clientes-dasbhoard',
   standalone: true,
-  imports: [ListaServiciosComponent],
+  imports: [ListaServiciosComponent, RouterLink],
   templateUrl: './clientes-dasbhoard.html',
   styleUrl: './clientes-dasbhoard.css',
 })

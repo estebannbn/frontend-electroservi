@@ -67,4 +67,8 @@ export class ListaServiciosService {
   eliminarMaterialDeServicio(servicioId: number, materialId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/item-material/${servicioId}/${materialId}`);
   }
+
+  cambiarEstadoServicio(servicioId: number, estado: string): Observable<{ servicio: Servicio }> {
+    return this.http.patch<{ servicio: Servicio }>(`${this.baseUrl}/servicio/${servicioId}/estado`, { estado }, { withCredentials: true });
+  }
 }

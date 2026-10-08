@@ -39,4 +39,24 @@
     </div>
   </div>
 
+
+  <!-- Modal -->
+  <div class="modal fade show" tabindex="-1" style="display: block; background: rgba(0,0,0,0.5);"
+    *ngIf="mostrarModal()">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Estado actualizado</h5>
+          <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ modalMensaje() }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="cerrarModal()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
