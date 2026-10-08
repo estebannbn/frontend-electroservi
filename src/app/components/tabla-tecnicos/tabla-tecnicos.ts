@@ -22,6 +22,8 @@ export class TablaTecnicos implements OnInit {
   tecnicos = signal<Tecnico[]>([]);
   cargando = signal(false);
   error = signal<string | null>(null);
+  mostrarModal = signal(false);
+  modalMensaje = signal('');
 
   ngOnInit(): void {
     this.cargarTecnicos();
@@ -34,7 +36,7 @@ export class TablaTecnicos implements OnInit {
       next: (data) => {
         const tecnicosConEstado = data.usuarios.map(u => ({
           ...u,
-          activo: u.activo !== false
+          activo: u.tecnico?.estado !== 'DESHABILITADO'
         }));
         this.tecnicos.set(tecnicosConEstado);
         this.cargando.set(false);
@@ -52,10 +54,29 @@ export class TablaTecnicos implements OnInit {
   }
 
   toggleEstado(tecnico: Tecnico) {
-    this.tecnicos.set(
-      this.tecnicos().map((t) => (t.id === tecnico.id ? { ...t, activo: !t.activo } : t))
-    );
+    const nuevoEstado = tecnico.activo ? 'DESHABILITADO' : 'DISPONIBLE';
+    
+    this.tablaTecnicosService.cambiarEstado(tecnico.id, nuevoEstado).subscribe({
+      next: () => {
+        this.tecnicos.set(
+          this.tecnicos().map((t) => (t.id === tecnico.id ? { ...t, activo: !t.activo } : t))
+        );
+        
+        if (nuevoEstado === 'DESHABILITADO') {
+            this.modalMensaje.set('Técnico deshabilitado correctamente');
+        } else {
+            this.modalMensaje.set('Técnico habilitado correctamente');
+        }
+        this.mostrarModal.set(true);
+      },
+      error: (err) => {
+        console.error('Error al cambiar estado:', err);
+        alert('Hubo un error al cambiar el estado del técnico.');
+      }
+    });
   }
 
-
+  cerrarModal() {
+    this.mostrarModal.set(false);
+  }
 }

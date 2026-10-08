@@ -1,0 +1,19 @@
+/* presupuesto-cliente.css */
+input.form-control[readonly] {
+    background-color: #fff !important;
+}
+
+.table th,
+.table td {
+    border-color: #dee2e6;
+}
+
+.btn-outline-secondary {
+    color: #4a4a4a;
+    border-color: #c0c0c0;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}

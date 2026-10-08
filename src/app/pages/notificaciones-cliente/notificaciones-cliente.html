@@ -1,0 +1,38 @@
+<div class="container mt-4 pt-2">
+    <div class="d-flex justify-content-start mb-4">
+        <button class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-semibold shadow-sm text-dark bg-white"
+            routerLink="/clientes">
+            &larr; Volver
+        </button>
+    </div>
+
+    <h2 class="text-center fw-bold mb-4">Notificaciones</h2>
+
+    @if (notificaciones.length === 0) {
+    <div class="alert alert-info text-center">
+        No tienes notificaciones pendientes.
+    </div>
+    } @else {
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm rounded overflow-hidden">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col" class="py-3 px-4">Mensaje</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white">
+                @for (noti of notificaciones; track noti.id) {
+                <tr>
+                    <td class="py-3 px-4">
+                        <a [routerLink]="['/clientes/presupuesto', noti.id]" class="text-decoration-none text-dark d-block">
+                            Tu <strong>{{ formatApplianceName(noti.electrodomestico?.tipo) }}</strong> ya está
+                            <strong>{{ noti.estado?.toLowerCase() }}</strong>! Pulsa aquí para continuar.
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>

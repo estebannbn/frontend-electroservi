@@ -25,6 +25,7 @@ export interface Servicio {
     tecnicoId?: number | null;
     clienteId: number;
     tipoTrabajoId?: number | null;
+    tipoTrabajo?: any;
     electrodomesticoId?: number;
     electrodomestico?: Electrodomestico;
     itemsMaterial?: ItemDeMaterial[];

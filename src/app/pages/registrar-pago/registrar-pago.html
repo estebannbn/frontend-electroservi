@@ -6,15 +6,23 @@
         </button>
     </div>
 
-    <div class="text-center mb-5">
+    <div class="text-center mb-4">
         <h2 class="fw-bold text-dark">Registro de pagos de este mes</h2>
+    </div>
+
+    <div class="d-flex align-items-center mb-4 p-3 bg-light rounded border shadow-sm" style="max-width: 400px; margin: 0 auto;">
+        <span class="me-3 fw-bold text-secondary">Modificar sueldo común:</span>
+        <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" [value]="sueldoComun()" (input)="sueldoComun.set(+$any($event.target).value)" min="0">
+        </div>
     </div>
 
     <!-- Lista de Tecnicos -->
     <div class="mt-4">
-        @for (tecnico of tecnicos; track tecnico.id) {
+        @for (tecnico of tecnicos(); track tecnico.id) {
         <app-pago-component [nombreCompleto]="tecnico.nombre + ' ' + tecnico.apellido" [email]="tecnico.mail"
-            [tecnicoId]="tecnico.id">
+            [tecnicoId]="tecnico.id" [montoPago]="sueldoComun()">
         </app-pago-component>
         } @empty {
         <div class="text-center text-muted">

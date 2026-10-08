@@ -11,6 +11,7 @@ export interface Usuario {
   cuil: string;
   telefono: string;
   direccion: string;
+  tecnico?: { id: number; estado: string };
   activo: boolean;
 }
 
@@ -24,4 +25,9 @@ export class TablaTecnicosService {
   obtenerTecnicos(): Observable<{ usuarios: Usuario[] }> {
     return this.http.get<{ usuarios: Usuario[] }>(`${this.apiUrl}?tipo=tecnico`);
   }
+
+  cambiarEstado(id: number, estado: 'DISPONIBLE' | 'DESHABILITADO'): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/tecnico/${id}/estado`, { estado });
+  }
 }
+
